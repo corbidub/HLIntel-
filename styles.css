@@ -300,9 +300,17 @@ h3 {
 
 .hero-subhead {
   max-width: 720px;
-  margin-bottom: 28px;
+  margin-bottom: 14px;
   color: #bdd4e2;
   font-size: clamp(1rem, 2.7vw, 1.18rem);
+}
+
+.risk-note {
+  max-width: 680px;
+  margin-bottom: 28px;
+  color: #a9bdcc;
+  font-size: 12px;
+  text-transform: uppercase;
 }
 
 .hero-actions {
@@ -593,6 +601,14 @@ details::after,
   filter: drop-shadow(0 0 8px rgba(255, 45, 158, 0.85));
 }
 
+.sample-caption {
+  position: relative;
+  z-index: 1;
+  margin: 14px 0 0;
+  color: var(--muted-blue);
+  font-size: 11px;
+}
+
 .stats-strip {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -640,7 +656,8 @@ details::after,
 
 .pricing-grid,
 .step-grid,
-.wallet-grid {
+.wallet-grid,
+.pilot-grid {
   display: grid;
   gap: 16px;
 }
@@ -648,7 +665,8 @@ details::after,
 .plan-card,
 .data-card,
 .wallet-card,
-.telegram-preview {
+.telegram-preview,
+.pilot-card {
   padding: 22px;
 }
 
@@ -703,6 +721,67 @@ details::after,
   height: 1px;
   content: "";
   background: var(--cyan);
+}
+
+.offer-note {
+  margin: 0;
+  color: #a9bdcc;
+  font-size: 12px;
+}
+
+.pilot-section {
+  padding-top: 44px;
+}
+
+.pilot-card {
+  position: relative;
+  display: grid;
+  gap: 18px;
+  align-content: start;
+  min-height: 230px;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(135deg, rgba(0, 245, 255, 0.08), transparent 36%),
+    rgba(18, 24, 38, 0.86);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.025);
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+}
+
+.pilot-card::after {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  width: 34px;
+  height: 1px;
+  content: "";
+  background: var(--cyan);
+  box-shadow: 0 0 18px rgba(0, 245, 255, 0.7);
+}
+
+.pilot-card-primary {
+  border-color: var(--danger-line);
+  background:
+    linear-gradient(135deg, rgba(255, 45, 158, 0.12), transparent 40%),
+    linear-gradient(315deg, rgba(0, 245, 255, 0.08), transparent 40%),
+    rgba(18, 24, 38, 0.9);
+}
+
+.pilot-card > span:not(.step-number) {
+  color: var(--cyan);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.pilot-card h3 {
+  margin-bottom: 0;
+  color: var(--cyan);
+  font-size: clamp(2rem, 9vw, 3.2rem);
+  line-height: 1;
+}
+
+.pilot-card p {
+  margin-bottom: 0;
 }
 
 .data-card {
@@ -954,6 +1033,7 @@ details p {
   .pricing-grid,
   .step-grid,
   .wallet-grid,
+  .pilot-grid,
   .alert-guide-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
