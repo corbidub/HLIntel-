@@ -784,6 +784,55 @@ details::after,
   margin-bottom: 0;
 }
 
+.read-alert-section {
+  padding-top: 22px;
+}
+
+.alert-guide-grid {
+  display: grid;
+  gap: 1px;
+  border: 1px solid var(--line);
+  background: var(--line);
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+}
+
+.guide-item {
+  position: relative;
+  min-height: 138px;
+  padding: 18px;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(0, 245, 255, 0.06), transparent 48%),
+    rgba(10, 14, 23, 0.9);
+}
+
+.guide-item::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 42px;
+  height: 1px;
+  content: "";
+  background: var(--magenta);
+  box-shadow: 0 0 14px rgba(255, 45, 158, 0.7);
+}
+
+.guide-item span {
+  display: block;
+  margin-bottom: 22px;
+  color: var(--cyan);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.guide-item p {
+  max-width: 360px;
+  margin-bottom: 0;
+  color: #c6d7e4;
+  font-size: 13px;
+}
+
 .wallet-card {
   display: grid;
   gap: 12px;
@@ -904,7 +953,8 @@ details p {
 
   .pricing-grid,
   .step-grid,
-  .wallet-grid {
+  .wallet-grid,
+  .alert-guide-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
