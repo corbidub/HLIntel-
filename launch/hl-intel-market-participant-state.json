@@ -1,0 +1,262 @@
+{
+  "generated_at": "2026-05-20T13:08:35.480Z",
+  "active_wallets": 5,
+  "tracked_wallets": 7,
+  "net_posture": "cautious / risk-off by notional",
+  "risk_on_notional": 1284795.895455,
+  "risk_off_notional": 3352865.51847,
+  "risk_mode_counts": {
+    "risk_off": 1,
+    "risk_on": 4
+  },
+  "posture_counts": {
+    "short_bias": 1,
+    "risk_on_long_bias": 3,
+    "long_bias": 1
+  },
+  "top_token_exposure": [
+    {
+      "symbol": "BTC",
+      "side": "short",
+      "notional_usd": 3352865.51847
+    },
+    {
+      "symbol": "SOL",
+      "side": "long",
+      "notional_usd": 487941.8847050001
+    },
+    {
+      "symbol": "HYPE",
+      "side": "long",
+      "notional_usd": 348253.5
+    },
+    {
+      "symbol": "BTC",
+      "side": "long",
+      "notional_usd": 232513.5
+    },
+    {
+      "symbol": "ZEC",
+      "side": "long",
+      "notional_usd": 216087.01075
+    }
+  ],
+  "read": "0x6979...da62 is the largest active participant: short bias via BTC exposure. 1 active wallet(s) are showing risk-off or de-risking behavior. 4 active wallet(s) are still expressing risk-on long bias. Breadth is risk-on, but notional is dominated by the largest risk-off participant.",
+  "states": [
+    {
+      "address": "0xbb9f0315243db63fc34c51f96ad5bb7ce6e275e2",
+      "wallet": "0xbb9f...75e2",
+      "wallet_rank": "Reactivation Watch",
+      "behavior_profile": "Incomplete Data",
+      "priority": "A",
+      "active": true,
+      "activity_status": "recently_active_flat",
+      "posture": "flat",
+      "posture_label": "Flat / Waiting",
+      "risk_mode": "neutral",
+      "actions": [
+        "waiting"
+      ],
+      "account_value": 49969.77,
+      "exposure_total": 0,
+      "exposure_long": 0,
+      "exposure_short": 0,
+      "top_token": null,
+      "top_token_notional": 0,
+      "latest_trade_at": null,
+      "latest_trade_symbol": null,
+      "latest_trade_action": null,
+      "positions": []
+    },
+    {
+      "address": "0xf3362789cecf25c6a31288d172880d7ad9b81801",
+      "wallet": "0xf336...1801",
+      "wallet_rank": "Reactivation Watch",
+      "behavior_profile": "High Risk Behavior",
+      "priority": "A",
+      "active": true,
+      "activity_status": "recently_active_flat",
+      "posture": "flat",
+      "posture_label": "Flat / Waiting",
+      "risk_mode": "neutral",
+      "actions": [
+        "waiting"
+      ],
+      "account_value": 71668.4,
+      "exposure_total": 0,
+      "exposure_long": 0,
+      "exposure_short": 0,
+      "top_token": null,
+      "top_token_notional": 0,
+      "latest_trade_at": null,
+      "latest_trade_symbol": null,
+      "latest_trade_action": null,
+      "positions": []
+    },
+    {
+      "address": "0x6979dde2781dc4ec843641b10b2a2f2e0f4bda62",
+      "wallet": "0x6979...da62",
+      "wallet_rank": "Flagship",
+      "behavior_profile": "Elite Behavior",
+      "priority": "A",
+      "active": true,
+      "activity_status": "active_positioned",
+      "posture": "short_bias",
+      "posture_label": "Short Bias",
+      "risk_mode": "risk_off",
+      "actions": [
+        "holding"
+      ],
+      "account_value": 358443.74,
+      "exposure_total": 3352865.51847,
+      "exposure_long": 0,
+      "exposure_short": 3352865.51847,
+      "top_token": "BTC",
+      "top_token_notional": 3352865.51847,
+      "latest_trade_at": null,
+      "latest_trade_symbol": null,
+      "latest_trade_action": null,
+      "positions": [
+        {
+          "symbol": "BTC",
+          "side": "short",
+          "notional_usd": 3352865.51847,
+          "upnl": 169772.9000519999,
+          "risk_bucket": "majors"
+        }
+      ]
+    },
+    {
+      "address": "0x031f72deb03c509af42624ddcd1f63fce5ecb220",
+      "wallet": "0x031f...b220",
+      "wallet_rank": "Custom Watch",
+      "behavior_profile": "Incomplete Data",
+      "priority": "B",
+      "active": true,
+      "activity_status": "active_positioned",
+      "posture": "risk_on_long_bias",
+      "posture_label": "Risk-On Long Bias",
+      "risk_mode": "risk_on",
+      "actions": [
+        "holding"
+      ],
+      "account_value": 435240.19,
+      "exposure_total": 216087.01075,
+      "exposure_long": 216087.01075,
+      "exposure_short": 0,
+      "top_token": "ZEC",
+      "top_token_notional": 216087.01075,
+      "latest_trade_at": null,
+      "latest_trade_symbol": null,
+      "latest_trade_action": null,
+      "positions": [
+        {
+          "symbol": "ZEC",
+          "side": "long",
+          "notional_usd": 216087.01075,
+          "upnl": 21529.02803000001,
+          "risk_bucket": "high_beta"
+        }
+      ]
+    },
+    {
+      "address": "0x143c28ae5b8642f58c98b8a6f82a0f314d23f6ab",
+      "wallet": "0x143c...f6ab",
+      "wallet_rank": "Custom Watch",
+      "behavior_profile": "High Risk Behavior",
+      "priority": "B",
+      "active": true,
+      "activity_status": "active_positioned",
+      "posture": "risk_on_long_bias",
+      "posture_label": "Risk-On Long Bias",
+      "risk_mode": "risk_on",
+      "actions": [
+        "holding"
+      ],
+      "account_value": 1286743.62,
+      "exposure_total": 348253.5,
+      "exposure_long": 348253.5,
+      "exposure_short": 0,
+      "top_token": "HYPE",
+      "top_token_notional": 348253.5,
+      "latest_trade_at": null,
+      "latest_trade_symbol": null,
+      "latest_trade_action": null,
+      "positions": [
+        {
+          "symbol": "HYPE",
+          "side": "long",
+          "notional_usd": 348253.5,
+          "upnl": 11140.500000000024,
+          "risk_bucket": "high_beta"
+        }
+      ]
+    },
+    {
+      "address": "0xa3d843b6a057504284006bef6f34a2e9bc80fb6b",
+      "wallet": "0xa3d8...fb6b",
+      "wallet_rank": "Custom Watch",
+      "behavior_profile": "Elite Behavior",
+      "priority": "B",
+      "active": true,
+      "activity_status": "active_positioned",
+      "posture": "long_bias",
+      "posture_label": "Long Bias",
+      "risk_mode": "risk_on",
+      "actions": [
+        "holding"
+      ],
+      "account_value": 24852.62,
+      "exposure_total": 232513.5,
+      "exposure_long": 232513.5,
+      "exposure_short": 0,
+      "top_token": "BTC",
+      "top_token_notional": 232513.5,
+      "latest_trade_at": null,
+      "latest_trade_symbol": null,
+      "latest_trade_action": null,
+      "positions": [
+        {
+          "symbol": "BTC",
+          "side": "long",
+          "notional_usd": 232513.5,
+          "upnl": -8161.5,
+          "risk_bucket": "majors"
+        }
+      ]
+    },
+    {
+      "address": "0xa4add8273d7f47318675bdfbcce3e9648cdb4509",
+      "wallet": "0xa4ad...4509",
+      "wallet_rank": "Custom Watch",
+      "behavior_profile": "Low Pnl Unproven",
+      "priority": "B",
+      "active": true,
+      "activity_status": "active_positioned",
+      "posture": "risk_on_long_bias",
+      "posture_label": "Risk-On Long Bias",
+      "risk_mode": "risk_on",
+      "actions": [
+        "holding"
+      ],
+      "account_value": 96325.37,
+      "exposure_total": 487941.8847050001,
+      "exposure_long": 487941.8847050001,
+      "exposure_short": 0,
+      "top_token": "SOL",
+      "top_token_notional": 487941.8847050001,
+      "latest_trade_at": null,
+      "latest_trade_symbol": null,
+      "latest_trade_action": null,
+      "positions": [
+        {
+          "symbol": "SOL",
+          "side": "long",
+          "notional_usd": 487941.8847050001,
+          "upnl": 180.2928340000286,
+          "risk_bucket": "high_beta"
+        }
+      ]
+    }
+  ]
+}

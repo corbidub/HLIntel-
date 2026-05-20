@@ -1,0 +1,105 @@
+{
+  "generated_at": "2026-05-20T14:01:28.851Z",
+  "source_generated_at": "2026-05-20T13:08:35.480Z",
+  "market_map_version": "2026-05-20",
+  "tracked_wallets": 7,
+  "active_rwa_wallets": 0,
+  "net_posture": "quiet / no mapped RWA exposure",
+  "rwa_long_notional": 0,
+  "rwa_short_notional": 0,
+  "top_exposure": [],
+  "read": "Current VIP snapshot shows no mapped stock, index, commodity, volatility, or crypto-equity-proxy exposure. This is a clean baseline; the next mapped RWA entry, add, trim, exit, or flip becomes the signal.",
+  "next_watch": [
+    "- First VIP wallet to open SP500 / XYZ100 / VIX exposure.",
+    "- First VIP wallet to use COIN / MSTR / HOOD / CRCL as crypto-equity proxy.",
+    "- First VIP wallet to rotate into gold, oil, or other commodity exposure.",
+    "- Any RWA position tied to CPI, Fed, earnings, or weekend geopolitical risk."
+  ],
+  "active_participants": [],
+  "states": [
+    {
+      "address": "0xbb9f0315243db63fc34c51f96ad5bb7ce6e275e2",
+      "wallet": "0xbb9f...75e2",
+      "wallet_rank": "Reactivation Watch",
+      "behavior_profile": "Incomplete Data",
+      "priority": "A",
+      "existing_risk_mode": "neutral",
+      "participant_type": "no_rwa_exposure",
+      "rwa_exposure_total": 0,
+      "rwa_positions": [],
+      "read": "No mapped RWA exposure."
+    },
+    {
+      "address": "0xf3362789cecf25c6a31288d172880d7ad9b81801",
+      "wallet": "0xf336...1801",
+      "wallet_rank": "Reactivation Watch",
+      "behavior_profile": "High Risk Behavior",
+      "priority": "A",
+      "existing_risk_mode": "neutral",
+      "participant_type": "no_rwa_exposure",
+      "rwa_exposure_total": 0,
+      "rwa_positions": [],
+      "read": "No mapped RWA exposure."
+    },
+    {
+      "address": "0x6979dde2781dc4ec843641b10b2a2f2e0f4bda62",
+      "wallet": "0x6979...da62",
+      "wallet_rank": "Flagship",
+      "behavior_profile": "Elite Behavior",
+      "priority": "A",
+      "existing_risk_mode": "risk_off",
+      "participant_type": "no_rwa_exposure",
+      "rwa_exposure_total": 0,
+      "rwa_positions": [],
+      "read": "No mapped RWA exposure."
+    },
+    {
+      "address": "0x031f72deb03c509af42624ddcd1f63fce5ecb220",
+      "wallet": "0x031f...b220",
+      "wallet_rank": "Custom Watch",
+      "behavior_profile": "Incomplete Data",
+      "priority": "B",
+      "existing_risk_mode": "risk_on",
+      "participant_type": "no_rwa_exposure",
+      "rwa_exposure_total": 0,
+      "rwa_positions": [],
+      "read": "No mapped RWA exposure."
+    },
+    {
+      "address": "0x143c28ae5b8642f58c98b8a6f82a0f314d23f6ab",
+      "wallet": "0x143c...f6ab",
+      "wallet_rank": "Custom Watch",
+      "behavior_profile": "High Risk Behavior",
+      "priority": "B",
+      "existing_risk_mode": "risk_on",
+      "participant_type": "no_rwa_exposure",
+      "rwa_exposure_total": 0,
+      "rwa_positions": [],
+      "read": "No mapped RWA exposure."
+    },
+    {
+      "address": "0xa3d843b6a057504284006bef6f34a2e9bc80fb6b",
+      "wallet": "0xa3d8...fb6b",
+      "wallet_rank": "Custom Watch",
+      "behavior_profile": "Elite Behavior",
+      "priority": "B",
+      "existing_risk_mode": "risk_on",
+      "participant_type": "no_rwa_exposure",
+      "rwa_exposure_total": 0,
+      "rwa_positions": [],
+      "read": "No mapped RWA exposure."
+    },
+    {
+      "address": "0xa4add8273d7f47318675bdfbcce3e9648cdb4509",
+      "wallet": "0xa4ad...4509",
+      "wallet_rank": "Custom Watch",
+      "behavior_profile": "Low Pnl Unproven",
+      "priority": "B",
+      "existing_risk_mode": "risk_on",
+      "participant_type": "no_rwa_exposure",
+      "rwa_exposure_total": 0,
+      "rwa_positions": [],
+      "read": "No mapped RWA exposure."
+    }
+  ]
+}

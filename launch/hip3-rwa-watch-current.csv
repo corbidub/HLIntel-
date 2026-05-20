@@ -1,0 +1,8 @@
+address,wallet,wallet_rank,behavior_profile,participant_type,rwa_exposure_total,rwa_positions
+0xbb9f0315243db63fc34c51f96ad5bb7ce6e275e2,0xbb9f...75e2,Reactivation Watch,Incomplete Data,no_rwa_exposure,0,
+0xf3362789cecf25c6a31288d172880d7ad9b81801,0xf336...1801,Reactivation Watch,High Risk Behavior,no_rwa_exposure,0,
+0x6979dde2781dc4ec843641b10b2a2f2e0f4bda62,0x6979...da62,Flagship,Elite Behavior,no_rwa_exposure,0,
+0x031f72deb03c509af42624ddcd1f63fce5ecb220,0x031f...b220,Custom Watch,Incomplete Data,no_rwa_exposure,0,
+0x143c28ae5b8642f58c98b8a6f82a0f314d23f6ab,0x143c...f6ab,Custom Watch,High Risk Behavior,no_rwa_exposure,0,
+0xa3d843b6a057504284006bef6f34a2e9bc80fb6b,0xa3d8...fb6b,Custom Watch,Elite Behavior,no_rwa_exposure,0,
+0xa4add8273d7f47318675bdfbcce3e9648cdb4509,0xa4ad...4509,Custom Watch,Low Pnl Unproven,no_rwa_exposure,0,

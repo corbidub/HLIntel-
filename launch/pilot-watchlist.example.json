@@ -1,0 +1,28 @@
+{
+  "customer": "pilot-hyperbulla",
+  "notes": "Copy to pilot-watchlist.local.json for a real paid pilot. The local file is intentionally not required; without it the monitor runs in default internal mode.",
+  "tokens": ["BTC", "ETH", "HYPE", "SOL", "ZEC"],
+  "wallets": [
+    {
+      "address": "0x6979dde2781dc4ec843641b10b2a2f2e0f4bda62",
+      "label": "flagship-btc-watch",
+      "tokens": ["BTC"],
+      "min_notional_change_usd": 25000,
+      "min_upnl_change_usd": 10000
+    },
+    {
+      "address": "0x86149addc2ebeb610d2630b07cbfea5c19fa690e",
+      "label": "custom-asymmetric-watch",
+      "tokens": ["BTC", "ETH", "HYPE", "TAO", "SOL", "DOGE", "ZEC"],
+      "min_notional_change_usd": 25000,
+      "min_upnl_change_usd": 10000
+    },
+    {
+      "address": "0xa3d843b6a057504284006bef6f34a2e9bc80fb6b",
+      "label": "custom-btc-only",
+      "tokens": ["BTC"],
+      "min_notional_change_usd": 50000,
+      "min_upnl_change_usd": 15000
+    }
+  ]
+}

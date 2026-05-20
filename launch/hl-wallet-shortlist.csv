@@ -1,0 +1,9 @@
+date,source,wallet,period,total_pnl,roi,accuracy,max_drawdown,trade_count,risk_label,style_label,shortlist_status,why_it_passes,next_review
+2026-05-18,HyperCopy 3M total_pnl,0x06cecfbac34101ae41c88ebc2450f8602b3d164b,3M,+$5.63M,++403.13% ROI,97.2%,-0.0%,701,Low risk,,watch,Positive 3M PnL with 701 trades 97.2% accuracy and near-zero drawdown,2026-05-19
+2026-05-18,HyperCopy 3M total_pnl,0xfd423284f6a9c73a2a3d53cab8921d6533533d97,3M,+$2.53M,++186.01% ROI,100.0%,-0.0%,890,Low risk,,watch,Positive 3M PnL with 890 trades 100.0% accuracy and near-zero drawdown,2026-05-19
+2026-05-18,HyperCopy 3M total_pnl,0xa875890465da20062bcf3b024bf7d54e69c725a8,3M,+$1.93M,++27.79% ROI,100.0%,-0.0%,729,Low risk,,watch,Positive 3M PnL with 729 trades 100.0% accuracy and near-zero drawdown,2026-05-19
+2026-05-18,HyperCopy 3M total_pnl,0x9c89f595f5515609ad61f6fda94beff85ae6600e,3M,+$1.71M,++16.50% ROI,100.0%,-0.0%,2375,Low risk,,watch,Positive 3M PnL with 2375 trades 100.0% accuracy and near-zero drawdown,2026-05-19
+2026-05-18,HyperCopy 3M total_pnl,0xa3d843b6a057504284006bef6f34a2e9bc80fb6b,3M,+$1.11M,++4559.37% ROI,92.3%,-12.4%,2502,Low risk,Asymmetric Pro,watch,Positive 3M PnL with 2502 trades 92.3% accuracy and acceptable drawdown,2026-05-19
+2026-05-18,HyperCopy 3M total_pnl,0x143c28ae5b8642f58c98b8a6f82a0f314d23f6ab,3M,+$876.6K,++62.59% ROI,91.1%,-0.2%,1824,Low risk,Asymmetric Pro,watch,Positive 3M PnL with 1824 trades 91.1% accuracy and low drawdown,2026-05-19
+2026-05-18,HyperCopy 3M total_pnl,0x69cc3ae720efdff1cd2a8edec79a7a3fac6e14fd,3M,+$805.7K,++2.52% ROI,99.9%,-0.0%,2105,Low risk,,watch,Positive 3M PnL with 2105 trades 99.9% accuracy and near-zero drawdown,2026-05-19
+2026-05-18,HyperCopy 3M total_pnl,0x0daf132c5554fd7d5eb422585426af557d8847e0,3M,+$619.0K,++50.74% ROI,99.8%,-0.0%,1208,Low risk,,watch,Positive 3M PnL with 1208 trades 99.8% accuracy and near-zero drawdown,2026-05-19

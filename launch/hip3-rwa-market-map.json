@@ -1,0 +1,177 @@
+{
+  "version": "2026-05-20",
+  "notes": [
+    "Starter map for HL Intel HIP-3 / RWA watch.",
+    "Symbols may appear as plain tickers or builder-prefixed tickers such as xyz:SP500.",
+    "Keep this conservative: classify markets we would actually want to interpret for Pro alerts."
+  ],
+  "builders": {
+    "xyz": {
+      "name": "trade.xyz",
+      "venue_type": "HIP-3 builder-deployed perp venue"
+    }
+  },
+  "markets": {
+    "SP500": {
+      "category": "index",
+      "theme": "broad_equity_risk",
+      "tier": 1,
+      "risk_read": "macro_equity_beta",
+      "pro_angle": "Broad equity risk appetite or hedge demand expressed on-chain."
+    },
+    "XYZ100": {
+      "category": "index",
+      "theme": "nasdaq_tech_beta",
+      "tier": 1,
+      "risk_read": "growth_equity_beta",
+      "pro_angle": "Tech/growth risk appetite expressed by crypto-native participants."
+    },
+    "VIX": {
+      "category": "volatility",
+      "theme": "volatility_hedge",
+      "tier": 1,
+      "risk_read": "risk_off_hedge",
+      "pro_angle": "Volatility hedge or market stress expression."
+    },
+    "PAXG": {
+      "category": "commodity_proxy",
+      "theme": "gold_proxy",
+      "tier": 1,
+      "risk_read": "defensive_rotation",
+      "pro_angle": "Gold-proxy exposure from a crypto-native wallet."
+    },
+    "GOLD": {
+      "category": "commodity",
+      "theme": "gold",
+      "tier": 1,
+      "risk_read": "defensive_rotation",
+      "pro_angle": "Gold exposure as hedge, macro view, or defensive rotation."
+    },
+    "XAU": {
+      "category": "commodity",
+      "theme": "gold",
+      "tier": 1,
+      "risk_read": "defensive_rotation",
+      "pro_angle": "Gold exposure as hedge, macro view, or defensive rotation."
+    },
+    "SILVER": {
+      "category": "commodity",
+      "theme": "silver",
+      "tier": 1,
+      "risk_read": "macro_commodity",
+      "pro_angle": "Commodity beta or precious-metals rotation."
+    },
+    "XAG": {
+      "category": "commodity",
+      "theme": "silver",
+      "tier": 1,
+      "risk_read": "macro_commodity",
+      "pro_angle": "Commodity beta or precious-metals rotation."
+    },
+    "OIL": {
+      "category": "commodity",
+      "theme": "oil",
+      "tier": 1,
+      "risk_read": "macro_event_hedge",
+      "pro_angle": "Energy/macro hedge, especially around weekend or geopolitical risk."
+    },
+    "COIN": {
+      "category": "crypto_adjacent_equity",
+      "theme": "exchange_equity_proxy",
+      "tier": 2,
+      "risk_read": "crypto_equity_proxy",
+      "pro_angle": "Crypto beta expressed through public equity exposure."
+    },
+    "MSTR": {
+      "category": "crypto_adjacent_equity",
+      "theme": "bitcoin_equity_proxy",
+      "tier": 2,
+      "risk_read": "btc_equity_proxy",
+      "pro_angle": "Bitcoin beta expressed through MSTR-style equity exposure."
+    },
+    "HOOD": {
+      "category": "crypto_adjacent_equity",
+      "theme": "brokerage_crypto_proxy",
+      "tier": 2,
+      "risk_read": "crypto_equity_proxy",
+      "pro_angle": "Retail/crypto brokerage proxy exposure."
+    },
+    "CRCL": {
+      "category": "crypto_adjacent_equity",
+      "theme": "stablecoin_equity_proxy",
+      "tier": 2,
+      "risk_read": "crypto_equity_proxy",
+      "pro_angle": "Stablecoin/infrastructure proxy exposure."
+    },
+    "NVDA": {
+      "category": "mega_cap_equity",
+      "theme": "ai_semiconductor",
+      "tier": 2,
+      "risk_read": "ai_beta",
+      "pro_angle": "AI/semiconductor risk appetite expressed on-chain."
+    },
+    "TSLA": {
+      "category": "mega_cap_equity",
+      "theme": "high_beta_equity",
+      "tier": 2,
+      "risk_read": "high_beta_equity",
+      "pro_angle": "High-beta equity speculation or hedge."
+    },
+    "AAPL": {
+      "category": "mega_cap_equity",
+      "theme": "mega_cap_tech",
+      "tier": 3,
+      "risk_read": "equity_beta",
+      "pro_angle": "Mega-cap tech beta exposure."
+    },
+    "MSFT": {
+      "category": "mega_cap_equity",
+      "theme": "mega_cap_tech",
+      "tier": 3,
+      "risk_read": "equity_beta",
+      "pro_angle": "Mega-cap tech beta exposure."
+    },
+    "GOOGL": {
+      "category": "mega_cap_equity",
+      "theme": "mega_cap_tech",
+      "tier": 3,
+      "risk_read": "equity_beta",
+      "pro_angle": "Mega-cap tech beta exposure."
+    },
+    "AMZN": {
+      "category": "mega_cap_equity",
+      "theme": "mega_cap_tech",
+      "tier": 3,
+      "risk_read": "equity_beta",
+      "pro_angle": "Mega-cap tech beta exposure."
+    },
+    "META": {
+      "category": "mega_cap_equity",
+      "theme": "mega_cap_tech",
+      "tier": 3,
+      "risk_read": "equity_beta",
+      "pro_angle": "Mega-cap tech beta exposure."
+    },
+    "NFLX": {
+      "category": "mega_cap_equity",
+      "theme": "mega_cap_tech",
+      "tier": 3,
+      "risk_read": "equity_beta",
+      "pro_angle": "Mega-cap tech beta exposure."
+    },
+    "AMD": {
+      "category": "mega_cap_equity",
+      "theme": "ai_semiconductor",
+      "tier": 3,
+      "risk_read": "ai_beta",
+      "pro_angle": "AI/semiconductor risk appetite expressed on-chain."
+    },
+    "TSM": {
+      "category": "mega_cap_equity",
+      "theme": "ai_semiconductor",
+      "tier": 3,
+      "risk_read": "ai_beta",
+      "pro_angle": "AI/semiconductor risk appetite expressed on-chain."
+    }
+  }
+}
