@@ -5,19 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta
       name="description"
-      content="HL Intel monitors Hyperliquid leaderboard wallets, filters noisy activity, and sends Telegram alerts when tracked wallets materially change exposure."
+      content="HL Intel monitors Hyperliquid leaderboard wallets and sends Telegram alerts when ranked wallets change perp exposure, align in confluence, or move toward liquidation pressure."
     >
     <meta name="theme-color" content="#0A0E17">
-    <meta property="og:title" content="HL Intel - Hyperliquid Smart Money Alerts">
+    <link rel="canonical" href="https://hyperliquidintel.com">
+    <meta property="og:title" content="HL Intel - Hyperliquid Perp Wallet Intelligence">
     <meta
       property="og:description"
-      content="Filtered Hyperliquid wallet intelligence for traders who want fewer noisy alerts and more context."
+      content="Filtered Hyperliquid perp wallet intelligence for traders who want fewer noisy alerts and more positioning context."
     >
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://hyperliquidintel.com">
-    <title>HL Intel - Hyperliquid Smart Money Alerts</title>
-    <link rel="stylesheet" href="styles.css">
-    <script defer src="script.js"></script>
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@HLIntelFeed">
+    <meta name="twitter:title" content="HL Intel - Hyperliquid Perp Wallet Intelligence">
+    <meta
+      name="twitter:description"
+      content="Telegram-first alerts for ranked Hyperliquid wallet exposure changes, confluence, and liquidation pressure."
+    >
+    <title>HL Intel - Hyperliquid Perp Wallet Intelligence</title>
+    <link rel="stylesheet" href="styles.css?v=20260521-perp">
+    <script defer src="script.js?v=20260521-perp"></script>
   </head>
   <body>
     <div class="site-shell">
@@ -36,9 +44,10 @@
           <a href="#plans">Free vs Pro</a>
           <a href="#faq">FAQ</a>
           <a href="https://t.me/HLIntel" target="_blank" rel="noopener noreferrer">Telegram</a>
+          <a href="https://x.com/HLIntelFeed" target="_blank" rel="noopener noreferrer">X</a>
         </nav>
 
-        <a class="button button-small button-primary header-cta" href="https://launchpass.com/goonboi/launchpass-com-hlintelpro" target="_blank" rel="noopener noreferrer">
+        <a class="button button-small button-primary header-cta" href="https://www.launchpass.com/goonboi/launchpass-com-hlintelpro" target="_blank" rel="noopener noreferrer">
           Join Pro
         </a>
       </header>
@@ -48,31 +57,26 @@
           <div class="hero-copy">
             <div class="eyebrow">
               <span class="status-dot" aria-hidden="true"></span>
-              Telegram-first Hyperliquid wallet intelligence
+              Telegram-first Hyperliquid perp intelligence
             </div>
-            <h1 id="hero-title">Fewer whale alerts. Better wallet context.</h1>
+            <h1 id="hero-title">Fewer whale alerts. Better perp context.</h1>
             <p class="hero-subhead">
               HL Intel watches high-signal Hyperliquid leaderboard wallets, filters obvious bot and
-              market-maker noise, and sends Telegram alerts when tracked wallets materially change exposure.
+              market-maker noise, and sends Telegram alerts when ranked wallets add, trim, flip,
+              hedge, or move toward liquidation.
             </p>
             <p class="risk-note">
               Data product only. No trade calls, no custody, no guaranteed outcomes.
             </p>
 
             <div class="hero-actions" aria-label="Hero calls to action">
-              <a class="button button-primary" href="https://launchpass.com/goonboi/launchpass-com-hlintelpro" target="_blank" rel="noopener noreferrer">
+              <a class="button button-primary" href="https://www.launchpass.com/goonboi/launchpass-com-hlintelpro" target="_blank" rel="noopener noreferrer">
                 Join Pro - $29.99/mo
               </a>
               <a class="button button-secondary" href="https://t.me/HLIntel" target="_blank" rel="noopener noreferrer">
                 Free channel <span aria-hidden="true">-&gt;</span>
               </a>
             </div>
-
-            <ul class="proof-grid" aria-label="HL Intel proof points">
-              <li><strong>50</strong><span>Tracked wallet set</span></li>
-              <li><strong>15</strong><span>Excluded noisy profiles</span></li>
-              <li><strong>6</strong><span>VIP watch wallets</span></li>
-            </ul>
           </div>
 
           <div class="terminal-wrap" aria-label="Live alert terminal preview">
@@ -91,32 +95,32 @@
                 <span class="live-time" data-live-time>--:--:-- UTC</span>
               </div>
               <div class="alert-meta">
-                <span class="badge badge-magenta">VIP WHALE</span>
-                <span class="badge badge-cyan">ALGO FILTER PASSED</span>
+                <span class="badge badge-magenta">WHALE CONFLUENCE</span>
+                <span class="badge badge-cyan">LIQ PRESSURE WATCH</span>
               </div>
               <div class="alert-head">
                 <div>
                   <span class="label">Asset</span>
-                  <strong>BTC-PERP</strong>
+                  <strong>HYPE-PERP</strong>
                 </div>
                 <div>
                   <span class="label">Direction</span>
-                  <strong class="cyan">LONG</strong>
+                  <strong class="cyan">SHORT</strong>
                 </div>
               </div>
               <div class="alert-body">
                 <div>
-                  <span class="label">Exposure Change</span>
-                  <strong>+$4.2M</strong>
+                  <span class="label">Ranked Exposure</span>
+                  <strong>$19.1M</strong>
                 </div>
                 <div>
-                  <span class="label">Profile</span>
-                  <strong>VIP Watch</strong>
+                  <span class="label">Wallet State</span>
+                  <strong>5 aligned</strong>
                 </div>
               </div>
               <div class="chart-panel">
                 <!-- Replace this simulated SVG with a real alert screenshot if desired. -->
-                <svg viewBox="0 0 540 150" role="img" aria-label="BTC perpetual position expansion chart">
+                <svg viewBox="0 0 540 150" role="img" aria-label="HYPE perpetual position pressure chart">
                   <defs>
                     <linearGradient id="chartFill" x1="0" x2="0" y1="0" y2="1">
                       <stop offset="0%" stop-color="#00F5FF" stop-opacity="0.42"></stop>
@@ -137,7 +141,7 @@
                   <circle cx="540" cy="18" r="5"></circle>
                 </svg>
               </div>
-              <p class="sample-caption">Sample format. Pro alerts include wallet profile, change size, side, and chart context.</p>
+              <p class="sample-caption">Sample format. Pro alerts include rank, side, notional, unrealized pressure, liquidation context, and chart context.</p>
             </article>
           </div>
         </section>
@@ -157,7 +161,7 @@
           </div>
           <div>
             <strong>6</strong>
-            <span>VIP wallets tracked</span>
+            <span>stress watch</span>
           </div>
         </section>
 
@@ -179,7 +183,7 @@
                 For traders who already know how to execute and want a cleaner read on tracked
                 Hyperliquid wallet movement.
               </p>
-              <a class="button button-primary" href="https://launchpass.com/goonboi/launchpass-com-hlintelpro" target="_blank" rel="noopener noreferrer">
+              <a class="button button-primary" href="https://www.launchpass.com/goonboi/launchpass-com-hlintelpro" target="_blank" rel="noopener noreferrer">
                 Claim founder access
               </a>
             </article>
@@ -190,6 +194,7 @@
                 <li>Filtered exposure-change alerts</li>
                 <li>VIP watch-wallet context</li>
                 <li>Chart context on meaningful moves</li>
+                <li>Confluence and liquidation-pressure alerts</li>
                 <li>Weekly digest of the cleanest reads</li>
               </ul>
             </article>
@@ -240,11 +245,12 @@
                 <li>Wallet profile, rank, side, size, and context</li>
                 <li>Confluence notes when multiple tracked wallets align</li>
                 <li>Risk context including liquidation-aware warnings</li>
+                <li>Whale stress watch when wallets add into unrealized pressure</li>
                 <li>Weekly digest with the cleanest wallet reads</li>
                 <li>Noise filter excluding 15 obvious bot/MM profiles</li>
               </ul>
               <p class="offer-note">Best for traders who already have their own execution rules and want faster awareness.</p>
-              <a class="button button-primary" href="https://launchpass.com/goonboi/launchpass-com-hlintelpro" target="_blank" rel="noopener noreferrer">
+              <a class="button button-primary" href="https://www.launchpass.com/goonboi/launchpass-com-hlintelpro" target="_blank" rel="noopener noreferrer">
                 Join Pro - $29.99/mo
               </a>
             </article>
@@ -278,8 +284,8 @@
             <span class="kicker">Message format</span>
             <h2 id="alert-title">The alert is the product.</h2>
             <p>
-              Every Pro alert is designed to answer one question fast: is this tracked-wallet
-              movement meaningful enough to review, or just noise?
+              Every Pro alert is designed to answer one question fast: did ranked wallets create
+              a meaningful perp setup, or is the timeline just reacting to noise?
             </p>
           </div>
 
@@ -290,15 +296,15 @@
               <span>sample</span>
             </div>
             <div class="telegram-message">
-              <p class="telegram-title">&#9733; VIP WALLET EXPOSURE INCREASE</p>
+              <p class="telegram-title">&#9733; WHALE CONFLUENCE - HYPE-PERP</p>
               <dl>
-                <div><dt>Asset</dt><dd>BTC-PERP</dd></div>
-                <div><dt>Direction</dt><dd>LONG</dd></div>
-                <div><dt>Exposure Change</dt><dd>+$4.2M</dd></div>
-                <div><dt>Wallet Rank</dt><dd>#42</dd></div>
-                <div><dt>Profile</dt><dd>HYPE/BTC long specialist</dd></div>
+                <div><dt>Direction</dt><dd>SHORT</dd></div>
+                <div><dt>Wallets</dt><dd>5 ranked wallets aligned</dd></div>
+                <div><dt>Exposure</dt><dd>$19.1M combined</dd></div>
+                <div><dt>Pressure</dt><dd>Shorts carrying unrealized pain</dd></div>
+                <div><dt>Watch</dt><dd>Add, trim, exit, flip, or liq pressure</dd></div>
               </dl>
-              <p>4h chart attached. VIP watch wallet. Noise filter passed.</p>
+              <p>Chart attached. Confluence passed. Data only, not financial advice.</p>
             </div>
           </article>
         </section>
@@ -316,7 +322,7 @@
           <div class="alert-guide-grid">
             <article class="guide-item">
               <span>01 / Asset</span>
-              <p>The perp market where the wallet moved.</p>
+              <p>The Hyperliquid perp market where the wallet moved.</p>
             </article>
             <article class="guide-item">
               <span>02 / Direction</span>
@@ -324,7 +330,7 @@
             </article>
             <article class="guide-item">
               <span>03 / Exposure Change</span>
-              <p>How much exposure the wallet added or reduced.</p>
+              <p>How much notional exposure the wallet added, reduced, or aligned with.</p>
             </article>
             <article class="guide-item">
               <span>04 / Wallet Rank</span>
@@ -341,6 +347,10 @@
             <article class="guide-item">
               <span>07 / Noise Filter</span>
               <p>Only alerts that pass the bot and market-maker filter are sent to Pro.</p>
+            </article>
+            <article class="guide-item">
+              <span>08 / Liquidation Context</span>
+              <p>Stress alerts flag when a ranked wallet adds while unrealized pressure is building.</p>
             </article>
           </div>
         </section>
@@ -406,10 +416,10 @@
 
         <section class="final-cta" aria-labelledby="final-title">
           <span class="kicker">Early access</span>
-          <h2 id="final-title">Get the filtered feed before the next clean wallet move.</h2>
+          <h2 id="final-title">Get the filtered feed before the next clean perp move.</h2>
           <p class="risk-note">Built for traders who want signal review, not blind copy-trading.</p>
           <div class="hero-actions">
-            <a class="button button-primary" href="https://launchpass.com/goonboi/launchpass-com-hlintelpro" target="_blank" rel="noopener noreferrer">
+            <a class="button button-primary" href="https://www.launchpass.com/goonboi/launchpass-com-hlintelpro" target="_blank" rel="noopener noreferrer">
               Join Pro - $29.99/month
             </a>
             <a class="button button-secondary" href="https://t.me/HLIntel" target="_blank" rel="noopener noreferrer">
@@ -421,7 +431,7 @@
 
       <footer class="site-footer">
         <span>hyperliquidintel.com</span>
-        <span><a href="https://t.me/HLIntel" target="_blank" rel="noopener noreferrer">@HLIntel</a> | <a href="https://launchpass.com/goonboi/launchpass-com-hlintelpro" target="_blank" rel="noopener noreferrer">@HLIntelPro</a></span>
+        <span><a href="https://t.me/HLIntel" target="_blank" rel="noopener noreferrer">@HLIntel</a> | <a href="https://www.launchpass.com/goonboi/launchpass-com-hlintelpro" target="_blank" rel="noopener noreferrer">@HLIntelPro</a> | <a href="https://x.com/HLIntelFeed" target="_blank" rel="noopener noreferrer">@HLIntelFeed</a></span>
         <span>Not financial advice. Data only. No custody or execution.</span>
       </footer>
     </div>

@@ -39,8 +39,9 @@ Use the exact DNS instructions Vercel shows in case they differ for your account
 
 ## Current Links
 
-- Pro checkout: `https://launchpass.com/goonboi/launchpass-com-hlintelpro`
+- Pro checkout: `https://www.launchpass.com/goonboi/launchpass-com-hlintelpro`
 - Free Telegram: `https://t.me/HLIntel`
+- X profile: `https://x.com/HLIntelFeed`
 - Pro footer link points to LaunchPass so paid access remains gated.
 
 ## Before Public Launch
