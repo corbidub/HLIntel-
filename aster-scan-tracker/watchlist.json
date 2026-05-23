@@ -1,0 +1,27 @@
+[
+  {
+    "address": "0xdd6a9af268992508a227b834a43c3895ca1dc065",
+    "label": "Largest visible exposure",
+    "notes": "First-pass leader: ETH long, SOL long, XRP/DOGE/BTC shorts; ~$16M visible exposure."
+  },
+  {
+    "address": "0xccdb90660719f9cf1de9c2824c606879701b8293",
+    "label": "BTC short whale",
+    "notes": "Clean BTCUSDT short, useful for BTC flow monitoring."
+  },
+  {
+    "address": "0xe5f5d067832f34049b720ac669d31f839f8887ba",
+    "label": "Multi-short stress basket",
+    "notes": "Short LAB, SKYAI, B, GENIUS, WLFI, and other smaller pairs."
+  },
+  {
+    "address": "0x534e687d03c509945b349ec53acf7cbcc16db0c7",
+    "label": "Active multi-position short book",
+    "notes": "Many open positions, mostly shorts, useful for rotation and basket stress."
+  },
+  {
+    "address": "0xb4430b4d0b274fa0c641c42dff092f9933d734ae",
+    "label": "High-activity volume wallet",
+    "notes": "Top activity/volume wallet with HYPE, SOL, LINK, WLFI and other exposure."
+  }
+]
