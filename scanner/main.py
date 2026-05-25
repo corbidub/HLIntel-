@@ -1,5 +1,7 @@
 import asyncio
+import json
 import logging
+from pathlib import Path
 
 import config
 from hyperliquid.client import get_leaderboard, get_funding_and_oi, fetch_all_positions
@@ -23,19 +25,56 @@ logging.getLogger("httpx").setLevel(logging.WARNING)
 log = logging.getLogger(__name__)
 
 
-def manual_watch_rows(top50_addresses: set[str]) -> list[dict]:
+def load_deploy_watchlist() -> list[dict]:
+    path = Path(config.WATCHLIST_PATH)
+    if not path.exists():
+        return []
+
+    try:
+        payload = json.loads(path.read_text())
+    except Exception as exc:
+        log.error("Failed to read deploy watchlist %s: %s", path, exc)
+        return []
+
     rows = []
+    for wallet in payload.get("wallets", []):
+        address = str(wallet.get("address", "")).lower()
+        if not address.startswith("0x"):
+            continue
+        label = wallet.get("label") or wallet.get("priority") or "watch"
+        priority = wallet.get("priority") or "B"
+        rows.append({
+            "ethAddress": address,
+            "rank": f"{priority}:{label}",
+            "accountValue": 0,
+            "windowPerformances": {"day": {"pnl": 0}, "week": {"pnl": 0}},
+            "watch_tokens": [str(token).upper() for token in wallet.get("tokens", [])],
+            "min_notional_change_usd": float(wallet.get("min_notional_change_usd", 0) or 0),
+            "watch_notes": wallet.get("notes") or "",
+        })
+    return rows
+
+
+def manual_watch_rows(top50_addresses: set[str]) -> list[dict]:
+    rows_by_address = {}
     for wallet in get_watch_wallets():
         address = wallet["address"]
         if address in top50_addresses:
             continue
-        rows.append({
+        rows_by_address[address] = {
             "ethAddress": address,
             "rank": wallet["name"] or wallet["label"].replace("_", " ").title(),
             "accountValue": 0,
             "windowPerformances": {"day": {"pnl": 0}, "week": {"pnl": 0}},
-        })
-    return rows
+        }
+
+    for wallet in load_deploy_watchlist():
+        address = wallet["ethAddress"]
+        if address in top50_addresses:
+            continue
+        rows_by_address[address] = wallet
+
+    return list(rows_by_address.values())
 
 
 def apply_watch_account_values(watch_rows: list[dict], raw_positions: dict) -> None:

@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -39,6 +40,7 @@ SCAN_INTERVAL_SECONDS = _int_env("SCAN_INTERVAL_SECONDS", 180)
 HL_INFO_MIN_REQUEST_INTERVAL_SECONDS = _float_env("HL_INFO_MIN_REQUEST_INTERVAL_SECONDS", 0.35)
 HL_INFO_MAX_RETRIES = _int_env("HL_INFO_MAX_RETRIES", 4)
 SEND_STARTUP_MESSAGE = _bool_env("SEND_STARTUP_MESSAGE", False)
+WATCHLIST_PATH = os.getenv("HL_INTEL_WATCHLIST_PATH", str(Path(__file__).with_name("watchlist.json")))
 
 WHALE_POSITION_THRESHOLD_USD = 500_000
 

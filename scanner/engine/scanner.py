@@ -144,6 +144,21 @@ def wallet_profile_text(wallet_info) -> str:
     return str(name)[:180]
 
 
+def allowed_watch_tokens(row: dict) -> set[str]:
+    return {
+        str(token).upper()
+        for token in row.get("watch_tokens", [])
+        if str(token).strip()
+    }
+
+
+def watch_min_notional_change(row: dict) -> float:
+    try:
+        return float(row.get("min_notional_change_usd", 0) or 0)
+    except (TypeError, ValueError):
+        return 0.0
+
+
 def parse_positions(state: dict) -> list[dict]:
     positions = []
     for item in state.get("assetPositions", []):
@@ -243,6 +258,9 @@ async def check_whale_positions(
         for pos in current_positions:
             if alerts_sent_this_cycle >= MAX_WHALE_ALERTS_PER_CYCLE:
                 break
+            allowed_tokens = allowed_watch_tokens(row)
+            if allowed_tokens and pos["coin"].upper() not in allowed_tokens:
+                continue
             if pos["notional_usd"] < config.WHALE_POSITION_THRESHOLD_USD:
                 continue
 
@@ -338,6 +356,8 @@ async def check_whale_positions(
                     continue
                 pct_increase = ((pos["notional_usd"] - prev_notional) / prev_notional) * 100
                 if pct_increase < SIZE_INCREASE_THRESHOLD_PCT:
+                    continue
+                if pos["notional_usd"] - prev_notional < watch_min_notional_change(row):
                     continue
 
                 alert_key = f"whale:add:{address}:{pos['coin']}:{pos['side']}:{round(pos['notional_usd'], -4)}"

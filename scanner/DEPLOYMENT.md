@@ -25,6 +25,7 @@ SCAN_INTERVAL_SECONDS=180
 HL_INFO_MIN_REQUEST_INTERVAL_SECONDS=0.35
 HL_INFO_MAX_RETRIES=4
 SEND_STARTUP_MESSAGE=false
+HL_INTEL_WATCHLIST_PATH=/app/watchlist.json
 ```
 
 ## Fly.io Worker Path
@@ -54,5 +55,6 @@ Stop the container with `Ctrl-C`.
 ## Important Notes
 
 - Do not deploy without a persistent volume. Without it, alert cooldown history and wallet labels reset on every restart.
+- `scanner/watchlist.json` is packaged into the worker image and adds deploy-time wallet watches outside the top 50 leaderboard.
 - Do not run multiple scanner replicas against the same Telegram channels unless duplicate-alert protection is moved to a shared database with locking.
 - Keep `.env`, SQLite files, logs, and cache files out of GitHub.

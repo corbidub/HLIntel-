@@ -1,6 +1,12 @@
 name: Deploy Scanner To Fly
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - "scanner/**"
+      - ".github/workflows/deploy-scanner-fly.yml"
   workflow_dispatch:
 
 jobs:
