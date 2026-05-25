@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta
       name="description"
-      content="HL Intel monitors Hyperliquid leaderboard wallets and sends Telegram alerts when ranked wallets change perp exposure, align in confluence, or move toward liquidation pressure."
+      content="HL Intel monitors Hyperliquid leaderboard wallets and sends Telegram alerts when ranked wallets change perp exposure, align in confluence, reactivate, or show margin stress."
     >
     <meta name="theme-color" content="#0A0E17">
     <link rel="canonical" href="https://hyperliquidintel.com">
     <meta property="og:title" content="HL Intel - Hyperliquid Perp Wallet Intelligence">
     <meta
       property="og:description"
-      content="Filtered Hyperliquid perp wallet intelligence for traders who want fewer noisy alerts and more positioning context."
+      content="Filtered Hyperliquid perp wallet intelligence for traders who want faster wallet context, margin stress reads, and cleaner positioning signals."
     >
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://hyperliquidintel.com">
@@ -21,7 +21,7 @@
     <meta name="twitter:title" content="HL Intel - Hyperliquid Perp Wallet Intelligence">
     <meta
       name="twitter:description"
-      content="Telegram-first alerts for ranked Hyperliquid wallet exposure changes, confluence, and liquidation pressure."
+      content="Telegram-first alerts for ranked Hyperliquid wallet exposure changes, confluence, reactivation, margin stress, and liquidation pressure."
     >
     <title>HL Intel - Hyperliquid Perp Wallet Intelligence</title>
     <link rel="stylesheet" href="styles.css?v=20260521-perp">
@@ -42,6 +42,7 @@
           <a href="#intel">Intel</a>
           <a href="#pilot">Pilot</a>
           <a href="#plans">Free vs Pro</a>
+          <a href="#snapshots">Snapshots</a>
           <a href="#faq">FAQ</a>
           <a href="https://t.me/HLIntel" target="_blank" rel="noopener noreferrer">Telegram</a>
           <a href="https://x.com/HLIntelFeed" target="_blank" rel="noopener noreferrer">X</a>
@@ -59,11 +60,11 @@
               <span class="status-dot" aria-hidden="true"></span>
               Telegram-first Hyperliquid perp intelligence
             </div>
-            <h1 id="hero-title">Ranked wallet moves. Real perp context.</h1>
+            <h1 id="hero-title">Ranked wallet moves. Real perp pressure.</h1>
             <p class="hero-subhead">
-              HL Intel watches high-signal Hyperliquid leaderboard wallets, filters obvious bot and
-              market-maker noise, and sends Telegram alerts when ranked wallets add, trim, flip,
-              hedge, or move toward liquidation.
+              HL Intel watches high-signal Hyperliquid leaderboard wallets and sends Telegram
+              alerts when ranked wallets add, trim, flip, reactivate, align in confluence, or
+              start showing margin stress.
             </p>
             <p class="risk-note">
               Data product only. No trade calls, no custody, no guaranteed outcomes.
@@ -95,8 +96,8 @@
                 <span class="live-time" data-live-time>--:--:-- UTC</span>
               </div>
               <div class="alert-meta">
-                <span class="badge badge-magenta">WHALE CONFLUENCE</span>
-                <span class="badge badge-cyan">LIQ PRESSURE WATCH</span>
+                <span class="badge badge-magenta">MARGIN STRESS</span>
+                <span class="badge badge-cyan">WHALE CONFLUENCE</span>
               </div>
               <div class="alert-head">
                 <div>
@@ -105,17 +106,17 @@
                 </div>
                 <div>
                   <span class="label">Direction</span>
-                  <strong class="cyan">SHORT</strong>
+                  <strong class="cyan">LONG</strong>
                 </div>
               </div>
               <div class="alert-body">
                 <div>
-                  <span class="label">Ranked Exposure</span>
-                  <strong>$19.1M</strong>
+                  <span class="label">Position</span>
+                  <strong>$4.3M</strong>
                 </div>
                 <div>
-                  <span class="label">Wallet State</span>
-                  <strong>5 aligned</strong>
+                  <span class="label">Margin Used</span>
+                  <strong>101%</strong>
                 </div>
               </div>
               <div class="chart-panel">
@@ -141,7 +142,7 @@
                   <circle cx="540" cy="18" r="5"></circle>
                 </svg>
               </div>
-              <p class="sample-caption">Sample format. Pro alerts include rank, side, notional, unrealized pressure, liquidation context, and chart context.</p>
+              <p class="sample-caption">Sample format. Pro alerts include rank, side, notional, account stress, liquidation context, and chart context.</p>
             </article>
           </div>
         </section>
@@ -152,16 +153,16 @@
             <span>watch process</span>
           </div>
           <div>
-            <strong>4h</strong>
-            <span>chart context</span>
+            <strong>Top 50</strong>
+            <span>ranked wallets</span>
           </div>
           <div>
-            <strong>15</strong>
-            <span>algos filtered</span>
-          </div>
-          <div>
-            <strong>6</strong>
+            <strong>Pro</strong>
             <span>stress watch</span>
+          </div>
+          <div>
+            <strong>Weekly</strong>
+            <span>digest</span>
           </div>
         </section>
 
@@ -171,9 +172,9 @@
             <h2 id="pilot-title">Start where the signal is: the feed.</h2>
             <p>
               Early Pro is intentionally focused: filtered Telegram alerts with ranked-wallet
-              context, confluence reads, liquidation-pressure notes, and a weekly digest of the
-              cleanest moves. No dashboard bloat. No trade automation. Just faster review when
-              perp positioning changes.
+              context, confluence reads, reactivation alerts, margin-stress warnings, open-interest
+              notes, and a weekly digest of the cleanest moves. No dashboard bloat. No trade
+              automation. Just faster review when perp positioning changes.
             </p>
           </div>
 
@@ -195,8 +196,10 @@
               <ul class="feature-list">
                 <li>Filtered exposure-change alerts</li>
                 <li>VIP watch-wallet context</li>
+                <li>Margin stress and liquidation-pressure alerts</li>
+                <li>Whale reactivation alerts</li>
                 <li>Chart context on meaningful moves</li>
-                <li>Confluence and liquidation-pressure alerts</li>
+                <li>Confluence and open-interest structure reads</li>
                 <li>Weekly digest of the cleanest reads</li>
               </ul>
             </article>
@@ -246,8 +249,11 @@
                 <li>VIP wallet alerts from the curated watch set</li>
                 <li>Wallet profile, rank, side, size, and context</li>
                 <li>Confluence notes when multiple tracked wallets align</li>
+                <li>Margin Stress Watch when wallets run out of spare account buffer</li>
+                <li>Whale reactivation alerts when sidelined wallets become active again</li>
                 <li>Risk context including liquidation-aware warnings</li>
-                <li>Whale stress watch when wallets add into unrealized pressure</li>
+                <li>Open-interest signals for short covering, long build, and leverage unwind</li>
+                <li>Below-threshold watch for early positioning before public alert size</li>
                 <li>Weekly digest with the cleanest wallet reads</li>
                 <li>Noise filter excluding 15 obvious bot/MM profiles</li>
               </ul>
@@ -268,15 +274,15 @@
           <div class="step-grid">
             <article class="data-card">
               <span class="step-number">01 / WE WATCH</span>
-              <p>Leaderboard wallets are monitored for material exposure changes.</p>
+              <p>Leaderboard and watch-list wallets are monitored for material behavior changes.</p>
             </article>
             <article class="data-card">
               <span class="step-number">02 / WE FILTER</span>
-              <p>Obvious bot-like and market-maker profiles are excluded before alerts go out.</p>
+              <p>Obvious bot-like and market-maker profiles are excluded before Pro alerts go out.</p>
             </article>
             <article class="data-card">
               <span class="step-number">03 / YOU KNOW</span>
-              <p>Pro receives concise Telegram alerts with wallet context, not a raw event firehose.</p>
+              <p>Pro receives concise Telegram alerts when wallets move, align, reactivate, or get stressed.</p>
             </article>
           </div>
         </section>
@@ -286,8 +292,8 @@
             <span class="kicker">Message format</span>
             <h2 id="alert-title">The alert is the product.</h2>
             <p>
-              Every Pro alert is designed to answer one question fast: did ranked wallets create
-              a meaningful perp setup, or is the timeline just reacting to noise?
+              Every Pro alert is designed to answer one question fast: did tracked wallets create
+              a meaningful perp signal, or is the timeline just reacting to noise?
             </p>
           </div>
 
@@ -298,17 +304,78 @@
               <span>sample</span>
             </div>
             <div class="telegram-message">
-              <p class="telegram-title">&#9733; WHALE CONFLUENCE - HYPE-PERP</p>
+              <p class="telegram-title">MARGIN STRESS WATCH - HYPE-PERP</p>
               <dl>
-                <div><dt>Direction</dt><dd>SHORT</dd></div>
-                <div><dt>Wallets</dt><dd>5 ranked wallets aligned</dd></div>
-                <div><dt>Exposure</dt><dd>$19.1M combined</dd></div>
-                <div><dt>Pressure</dt><dd>Shorts carrying unrealized pain</dd></div>
-                <div><dt>Watch</dt><dd>Add, trim, exit, flip, or liq pressure</dd></div>
+                <div><dt>Direction</dt><dd>LONG</dd></div>
+                <div><dt>Wallet</dt><dd>Ranked wallet with no spare buffer</dd></div>
+                <div><dt>Position</dt><dd>$4.3M HYPE exposure</dd></div>
+                <div><dt>Stress</dt><dd>Margin used exceeds account value</dd></div>
+                <div><dt>Watch</dt><dd>Add collateral, trim, exit, or forced pressure</dd></div>
               </dl>
-              <p>Chart attached. Confluence passed. Data only, not financial advice.</p>
+              <p>Chart attached. Stress threshold passed. Data only, not financial advice.</p>
             </div>
           </article>
+        </section>
+
+        <section class="section snapshot-section" id="snapshots" aria-labelledby="snapshots-title">
+          <div class="section-heading">
+            <span class="kicker">Pro snapshots</span>
+            <h2 id="snapshots-title">What Pro alerts look like in the wild.</h2>
+            <p>
+              Pro alerts are built to pair a concise Telegram read with chart context, so the user
+              can quickly see where ranked wallets are positioned and what pressure is building.
+            </p>
+          </div>
+
+          <div class="snapshot-grid">
+            <article class="snapshot-card snapshot-card-wide">
+              <img
+                src="assets/pro-hype-confluence.jpg"
+                alt="HL Intel HYPE-PERP whale confluence alert chart with top wallets aligned short"
+                loading="lazy"
+              >
+              <div class="snapshot-copy">
+                <span>HYPE confluence</span>
+                <p>Multiple top wallets aligned on one side of the book, with levels shown directly on the chart.</p>
+              </div>
+            </article>
+
+            <article class="snapshot-card">
+              <img
+                src="assets/pro-eth-stress.jpg"
+                alt="HL Intel ETH-PERP chart showing whale short levels and current price pressure"
+                loading="lazy"
+              >
+              <div class="snapshot-copy">
+                <span>ETH stress watch</span>
+                <p>Shows early whale shorts, underwater positions, and where forced-pressure risk starts to matter.</p>
+              </div>
+            </article>
+
+            <article class="snapshot-card">
+              <img
+                src="assets/pro-zec-confluence.jpg"
+                alt="HL Intel ZEC-PERP whale confluence alert chart with five ranked wallets aligned short"
+                loading="lazy"
+              >
+              <div class="snapshot-copy">
+                <span>ZEC confluence</span>
+                <p>Ranks, notional, and position levels stay visible so Pro users can review the setup fast.</p>
+              </div>
+            </article>
+
+            <article class="snapshot-card snapshot-card-wide">
+              <img
+                src="assets/pro-hype-positioning.png"
+                alt="HL Intel HYPE whale positioning infographic showing long and short notional split"
+                loading="lazy"
+              >
+              <div class="snapshot-copy">
+                <span>Positioning recap</span>
+                <p>Digest-style snapshots turn raw wallet exposure into a cleaner long-vs-short read.</p>
+              </div>
+            </article>
+          </div>
         </section>
 
         <section class="section read-alert-section" aria-labelledby="read-alert-title">
@@ -352,7 +419,7 @@
             </article>
             <article class="guide-item">
               <span>08 / Liquidation Context</span>
-              <p>Stress alerts flag when a ranked wallet adds while unrealized pressure is building.</p>
+              <p>Stress alerts flag when a wallet has little or no spare margin buffer left.</p>
             </article>
           </div>
         </section>
@@ -400,6 +467,10 @@
             <details>
               <summary>How do I access Pro?</summary>
               <p>After checkout, you receive access to @HLIntelPro. Cancelled members are removed automatically.</p>
+            </details>
+            <details>
+              <summary>What does Pro track?</summary>
+              <p>Pro tracks exposure changes, whale confluence, wallet reactivation, margin stress, liquidation pressure, open-interest structure, and selected below-threshold positioning.</p>
             </details>
             <details>
               <summary>Do you place trades for me?</summary>
