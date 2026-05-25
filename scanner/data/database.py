@@ -75,6 +75,19 @@ def init_db() -> None:
                 notes TEXT,
                 tagged_at TEXT NOT NULL
             );
+
+            CREATE TABLE IF NOT EXISTS wallet_performance_snapshots (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                address TEXT NOT NULL,
+                account_value REAL NOT NULL,
+                exposure_total REAL NOT NULL,
+                open_upnl REAL NOT NULL,
+                negative_upnl REAL NOT NULL,
+                open_positions INTEGER NOT NULL,
+                book_leverage REAL NOT NULL,
+                state TEXT NOT NULL,
+                snapshot_at TEXT NOT NULL
+            );
         """)
         # Safe migration — add liq_px column to existing DBs
         try:
@@ -95,6 +108,8 @@ def init_db() -> None:
                 ON funding_snapshots(asset, snapshot_at DESC);
             CREATE INDEX IF NOT EXISTS idx_alerts_type_key_sent
                 ON alerts_sent(alert_type, key, sent_at DESC);
+            CREATE INDEX IF NOT EXISTS idx_wallet_performance_address_snapshot
+                ON wallet_performance_snapshots(address, snapshot_at DESC);
         """)
 
 
@@ -138,6 +153,46 @@ def save_positions(address: str, positions: list[dict]) -> None:
                     now,
                 ),
             )
+
+
+def save_wallet_performance_snapshot(
+    address: str,
+    account_value: float,
+    exposure_total: float,
+    open_upnl: float,
+    negative_upnl: float,
+    open_positions: int,
+    book_leverage: float,
+    state: str,
+) -> None:
+    with get_conn() as conn:
+        conn.execute(
+            """INSERT INTO wallet_performance_snapshots
+               (address, account_value, exposure_total, open_upnl, negative_upnl,
+                open_positions, book_leverage, state, snapshot_at)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))""",
+            (
+                address.lower(),
+                account_value,
+                exposure_total,
+                open_upnl,
+                negative_upnl,
+                open_positions,
+                book_leverage,
+                state,
+            ),
+        )
+
+
+def get_latest_wallet_performance(address: str) -> sqlite3.Row | None:
+    with get_conn() as conn:
+        return conn.execute(
+            """SELECT * FROM wallet_performance_snapshots
+               WHERE address = ?
+               ORDER BY snapshot_at DESC
+               LIMIT 1""",
+            (address.lower(),),
+        ).fetchone()
 
 
 def save_funding(assets: list[dict]) -> None:

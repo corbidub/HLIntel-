@@ -83,9 +83,9 @@ We track the ones that matter.
 
 **Subheadline:**
 ```
-HL Intel monitors the top 50 wallets on Hyperliquid
-and filters out the algo bots — leaving only human
-conviction trades. When smart money moves, you know.
+HL Intel watches high-signal Hyperliquid wallets
+and sends Telegram alerts when they add, trim,
+exit, flip, reactivate, align, or get stressed.
 ```
 
 **Two CTAs:**
@@ -245,7 +245,7 @@ All files in `assets/brand/`:
 4. Propagation: 10min–2hrs
 
 ### Key Links to Wire Up
-- Pro checkout: LaunchPass link (to be provided)
+- Pro checkout: LaunchPass link
 - Free channel: t.me/HLIntel
 - Pro channel: t.me/HLIntelPro
 

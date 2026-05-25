@@ -1,6 +1,6 @@
 # HL Intel — Copy Bank
 
-Core positioning: **Curated human smart money. Algo noise filtered.**
+Core positioning: **Behavioral wallet intelligence for Hyperliquid traders.**
 
 ---
 
@@ -8,35 +8,36 @@ Core positioning: **Curated human smart money. Algo noise filtered.**
 
 ### Free — @HLIntel (255 char limit)
 ```
-Hyperliquid smart money intelligence. We track human conviction trades from the top 50 wallets — algo noise filtered out. Funding spikes, OI surges, weekly digest. Free tier. Pro at @HLIntelPro
+Hyperliquid wallet intelligence. Selected public reads, funding/OI context, confluence teasers, and digest excerpts. Pro: @HLIntelPro
 ```
 
 ### Pro — @HLIntelPro (255 char limit)
 ```
-Pro-tier human smart money intelligence. Real-time whale alerts, size increase detection, confluence signals when multiple wallets align. Algo filtered. 4h chart on every alert. Not financial advice.
+Filtered Hyperliquid wallet intelligence. Curated watch wallets, entries, adds, trims, exits, flips, wallet health, confluence, and stress reads. Data only.
 ```
 
 ---
 
-## Whop Product Page
+## LaunchPass / Pro Product Page
 
 ### Headline (80 chars)
 ```
-Hyperliquid smart money — algo noise filtered
+Hyperliquid wallet intelligence - behavior after the headline
 ```
 
 ### Description
 ```
-Most whale trackers fire on everything. HL Intel doesn't.
+Most whale trackers stop at the headline. HL Intel watches what happens next.
 
-We track the top 50 leaderboard wallets on Hyperliquid and filter out the algo bots. What's left is pure human conviction — the trades worth watching.
+The paid feed tracks curated Hyperliquid wallets and leaderboard context for material behavior changes: entry, add, trim, exit, flip, reactivation, stress, liquidation pressure, and wallet-health shifts.
 
 Pro members get:
-→ Real-time alerts when human whales open new positions
-→ Size increase detection when they add to a trade
-→ Confluence alerts when multiple wallets align on the same direction
-→ 4h candlestick chart on every alert with entry price markers
-→ Full weekly digest with wallet PnL performance
+→ Filtered tracked-wallet exposure-change alerts
+→ Curated/VIP wallet context
+→ Wallet health alerts for hot streaks and drawdowns
+→ Confluence when multiple tracked wallets align
+→ Stress and liquidation-pressure warnings
+→ Weekly digest with the cleanest wallet reads
 
 Not financial advice. Data only. Cancel anytime.
 ```
@@ -49,12 +50,12 @@ Not financial advice. Data only. Cancel anytime.
 ```
 HL INTEL
 
-Not all whales are equal.
-We track the ones that matter.
+Ranked wallet moves.
+Real perp pressure.
 
-HL Intel monitors the top 50 wallets on Hyperliquid
-and filters out the algo bots — leaving only human
-conviction trades. When smart money moves, you know.
+HL Intel watches high-signal Hyperliquid wallets
+and sends Telegram alerts when they add, trim, exit,
+flip, reactivate, align, or get stressed.
 
 [Free Channel →]  [Join Pro — $29.99/mo →]
 ```
@@ -67,12 +68,12 @@ FREE — @HLIntel
 → Weekly smart money digest
 
 PRO — @HLIntelPro ($29.99/month)
-→ Real-time human whale position alerts
-→ Size increase detection
-→ Confluence signals (2+ human wallets aligned)
-→ 4h chart breakdown on every alert
-→ Full weekly digest with wallet PnL
-→ Algo noise filtered — only conviction trades
+→ Filtered tracked-wallet exposure-change alerts
+→ Curated/VIP wallet context
+→ Wallet health alerts
+→ Confluence and stress reads
+→ Full weekly digest
+→ Noise-filtered Telegram feed
 ```
 
 ### The Difference
@@ -80,34 +81,33 @@ PRO — @HLIntelPro ($29.99/month)
 Every other tracker fires on everything.
 Algos, vaults, bots, noise.
 
-HL Intel identifies which top-50 wallets are
-algorithmic systems and removes them from your feed.
-What remains is human judgment — concentrated
-positions, high-conviction entries, real money at risk.
+HL Intel filters noisy wallets, stale movement,
+and unchanged positions before they hit the feed.
+What remains is behavior worth reviewing:
+entry, add, trim, exit, flip, stress, and confluence.
 
-That's the signal worth acting on.
+That is the context worth paying attention to.
 ```
 
 ### FAQ
 ```
 What is Hyperliquid?
-A decentralised perpetuals exchange. The top 50
-leaderboard wallets are the best performing traders
-on the platform by PnL.
+A decentralized perpetuals exchange. HL Intel monitors
+leaderboard wallets and curated watch wallets for
+market-intelligence context.
 
 How do you identify algos?
-By trading pattern — wallets trading 30+ different
-assets simultaneously are systematically flagged and
-excluded. Human traders concentrate. Algos diversify.
+By trading pattern, breadth, repetition, wallet behavior,
+and alert usefulness. Noisy wallets are suppressed or
+moved into custom/risk-watch lanes.
 
 Is this financial advice?
 No. HL Intel provides on-chain data and market
 intelligence only. Always do your own research.
 
 How do I access Pro after paying?
-Instant invite link to @HLIntelPro after checkout.
-Access managed automatically — cancelled members
-are removed within 24 hours.
+Checkout is handled through LaunchPass. Pro access is
+through the private @HLIntelPro Telegram channel.
 ```
 
 ---
@@ -121,9 +121,9 @@ are removed within 24 hours.
 Most whale trackers show you everything.
 We show you what matters.
 
-We track the top 50 Hyperliquid wallets and filter
-out the algo bots. What's left is pure human
-conviction — concentrated positions, real money at risk.
+We track curated Hyperliquid wallets and filter
+for behavior that matters after the headline:
+add, trim, exit, flip, stress, and confluence.
 
 Here's what we caught this week:
 • 339 position alerts fired
@@ -131,37 +131,39 @@ Here's what we caught this week:
 • Top human wallet: +$8.6M
 • Biggest position: $82M across 2 coins
 
-Free alerts → @HLIntel
-Human smart money intel → @HLIntelPro ($29.99/mo)
+Free reads → @HLIntel
+Pro wallet intelligence → @HLIntelPro ($29.99/mo)
 
 Not financial advice. Data only.
 ```
 
 ### Option B — Positioning post
 ```
-🐋 There are 50 top wallets on Hyperliquid.
+🐋 Wallet headlines are easy.
 
-Not all of them are human.
+Behavior after the headline is harder.
 
-Some are algos running 100+ markets simultaneously.
-Some are vault managers trading depositor money.
-Some are the real thing — traders with conviction,
-taking concentrated bets with their own capital.
+Did the wallet add?
+Trim?
+Exit?
+Flip?
+Get squeezed?
+Join confluence?
 
-HL Intel knows the difference.
+That is what HL Intel watches.
 
 Free: @HLIntel
-Pro (human smart money only): @HLIntelPro
+Pro: @HLIntelPro
 
 Not financial advice. Data only.
 ```
 
 ### Option C — Short punchy
 ```
-🐋 HL Intel filters the algo noise.
+🐋 HL Intel filters wallet noise.
 
-You get human conviction trades from
-Hyperliquid's top 50 wallets. Nothing else.
+You get tracked Hyperliquid wallet behavior:
+entry, add, trim, exit, flip, stress, confluence.
 
 Free → @HLIntel
 Pro → @HLIntelPro
@@ -173,14 +175,14 @@ Not financial advice.
 
 ## X / Twitter Bio (160 chars)
 ```
-Real-time human smart money intelligence for Hyperliquid traders. Algo noise filtered. Free: @HLIntel | Pro: @HLIntelPro | hyperliquidintel.com
+Behavioral wallet intelligence for Hyperliquid traders. Free: @HLIntel | Pro: @HLIntelPro | hyperliquidintel.com
 ```
 
 ---
 
 ## Key Phrases (use consistently)
-- "Human smart money" — not just "whale alerts"
-- "Algo noise filtered" — the differentiator
-- "Conviction trades" — what humans take that algos don't
-- "Real money at risk" — implies skin in the game
+- "Behavior after the headline" — the core differentiator
+- "Filtered wallet intelligence" — clearer than generic whale alerts
+- "Tracked-wallet exposure changes" — concrete product language
+- "Data only. Not financial advice." — always at the end
 - "Not financial advice. Data only." — always at the end

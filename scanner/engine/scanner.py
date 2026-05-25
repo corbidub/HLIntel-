@@ -8,7 +8,9 @@ from data.database import (
     get_previous_positions,
     get_latest_position_snapshot_at,
     get_recent_positions_for_addresses,
+    get_latest_wallet_performance,
     save_positions,
+    save_wallet_performance_snapshot,
     alert_already_sent,
     get_recent_alerts_by_prefix,
     record_alert,
@@ -24,6 +26,7 @@ from alerts.formatter import (
     whale_size_increase_alert,
     whale_stress_watch_alert,
     whale_reactivation_alert,
+    wallet_performance_alert,
     confluence_alert,
     confluence_teaser,
     liquidation_risk_alert,
@@ -50,6 +53,7 @@ WHALE_STRESS_LIQ_DISTANCE_WATCH_PCT = 30.0
 WHALE_REACTIVATION_LOOKBACK_HOURS = 12
 WHALE_REACTIVATION_COOLDOWN_MINUTES = 1440
 REACTIVATION_NOTE_MARKERS = ("flat", "watch", "sidelined", "empty", "inactive")
+WALLET_PERFORMANCE_COOLDOWN_MINUTES = 360
 
 
 def parse_alert_notional(alert_key: str) -> float | None:
@@ -159,6 +163,91 @@ def watch_min_notional_change(row: dict) -> float:
         return 0.0
 
 
+def wallet_performance_snapshot(account_value: float, positions: list[dict]) -> dict:
+    exposure_total = sum(float(pos["notional_usd"]) for pos in positions)
+    open_upnl = sum(float(pos["unrealized_pnl"]) for pos in positions)
+    negative_upnl = sum(min(0.0, float(pos["unrealized_pnl"])) for pos in positions)
+    return {
+        "account_value": account_value,
+        "exposure_total": exposure_total,
+        "open_upnl": open_upnl,
+        "negative_upnl": negative_upnl,
+        "open_positions": len(positions),
+        "book_leverage": exposure_total / account_value if account_value else 0.0,
+    }
+
+
+def classify_wallet_performance(current: dict, previous) -> tuple[str, str]:
+    account_value = current["account_value"]
+    open_upnl = current["open_upnl"]
+    negative_upnl = current["negative_upnl"]
+    upnl_pct = (open_upnl / account_value) * 100 if account_value else 0.0
+    negative_pct = (abs(negative_upnl) / account_value) * 100 if account_value else 0.0
+    equity_delta_pct = 0.0
+    upnl_delta = 0.0
+    if previous:
+        prev_equity = float(previous["account_value"] or 0)
+        equity_delta_pct = ((account_value - prev_equity) / prev_equity) * 100 if prev_equity else 0.0
+        upnl_delta = open_upnl - float(previous["open_upnl"] or 0)
+
+    hot_move_usd = max(25_000, account_value * 0.05)
+    danger_move_usd = max(50_000, account_value * 0.1)
+
+    if current["open_positions"] == 0:
+        return "flat", "Wallet is flat; no open PnL health signal."
+    if upnl_pct <= -20 or negative_pct >= 25 or equity_delta_pct <= -15 or upnl_delta <= -danger_move_usd:
+        return "self_imploding", "Open losses, equity damage, or uPnL deterioration crossed the self-implosion threshold."
+    if upnl_pct <= -10 or negative_pct >= 10 or equity_delta_pct <= -7:
+        return "implosion_watch", "Open losses or equity deterioration are large enough to watch closely."
+    if upnl_pct >= 20 or open_upnl >= 250_000 or upnl_delta >= hot_move_usd:
+        return "hot_streak", "Wallet is carrying outsized open profit or rapidly improving uPnL."
+    if upnl_delta <= -hot_move_usd or equity_delta_pct <= -5:
+        return "cooling_off", "Wallet is giving back meaningful open profit or equity."
+    if upnl_pct >= 5 or upnl_delta >= 10_000:
+        return "heating_up", "Wallet has positive open profit, but not enough for hot-streak status."
+    return "stable", "No major PnL health change."
+
+
+async def check_wallet_performance_health(
+    row: dict,
+    address: str,
+    rank,
+    positions: list[dict],
+    account_value: float,
+    seed_mode: bool,
+) -> None:
+    current = wallet_performance_snapshot(account_value, positions)
+    previous = get_latest_wallet_performance(address)
+    state, reason = classify_wallet_performance(current, previous)
+    save_wallet_performance_snapshot(address=address, state=state, **current)
+
+    if seed_mode or previous is None:
+        return
+    if state not in {"hot_streak", "cooling_off", "implosion_watch", "self_imploding"}:
+        return
+
+    alert_key = f"wallet_perf:{state}:{address}:{round(current['open_upnl'], -4)}"
+    if alert_already_sent("wallet_performance", alert_key, cooldown_minutes=WALLET_PERFORMANCE_COOLDOWN_MINUTES):
+        return
+
+    msg = wallet_performance_alert(
+        rank=rank,
+        address=address,
+        state=state,
+        account_value=current["account_value"],
+        exposure_total=current["exposure_total"],
+        open_upnl=current["open_upnl"],
+        negative_upnl=current["negative_upnl"],
+        book_leverage=current["book_leverage"],
+        reason=reason,
+    )
+    sent = await safe_send(msg, paid_only=True)
+    if sent:
+        record_alert("wallet_performance", alert_key)
+        log.info("Wallet performance [%s]: %s %s", state, address[:10], reason)
+        await asyncio.sleep(3)
+
+
 def parse_positions(state: dict) -> list[dict]:
     positions = []
     for item in state.get("assetPositions", []):
@@ -216,9 +305,6 @@ async def check_whale_positions(
     alerts_sent_this_cycle = 0
 
     for fallback_rank, row in enumerate(leaderboard, start=1):
-        if alerts_sent_this_cycle >= MAX_WHALE_ALERTS_PER_CYCLE:
-            break
-
         address = row["ethAddress"]
         rank = row.get("rank", fallback_rank)
 
@@ -251,6 +337,14 @@ async def check_whale_positions(
         prev_by_key = {f"{r['coin']}:{r['side']}": r for r in prev_rows}
 
         save_positions(address, current_positions)
+        await check_wallet_performance_health(
+            row=row,
+            address=address,
+            rank=rank,
+            positions=current_positions,
+            account_value=account_value,
+            seed_mode=seed_mode,
+        )
 
         if seed_mode:
             continue

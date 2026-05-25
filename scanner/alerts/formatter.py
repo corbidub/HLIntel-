@@ -151,6 +151,37 @@ def whale_reactivation_alert(rank: int, address: str, coin: str, side: str,
     )
 
 
+def wallet_performance_alert(rank, address: str, state: str, account_value: float,
+                             exposure_total: float, open_upnl: float,
+                             negative_upnl: float, book_leverage: float,
+                             reason: str) -> str:
+    state_labels = {
+        "hot_streak": "🔥 HOT STREAK",
+        "heating_up": "📈 HEATING UP",
+        "cooling_off": "📉 COOLING OFF",
+        "implosion_watch": "⚠️ IMPLOSION WATCH",
+        "self_imploding": "🚨 SELF-IMPLODING",
+    }
+    label = state_labels.get(state, state.replace("_", " ").upper())
+    upnl_str = f"+${open_upnl:,.0f}" if open_upnl >= 0 else f"-${abs(open_upnl):,.0f}"
+    negative_line = f"\n🩸 Negative uPnL: <b>-${abs(negative_upnl):,.0f}</b>" if negative_upnl < 0 else ""
+    return (
+        f"{label} — <b>Wallet Health</b> | 🔒 <b>PRO</b>\n"
+        f"━━━━━━━━━━━━━━━━\n"
+        f"{_rank_line(rank)}"
+        f"🔑 <code>{address[:6]}...{address[-4:]}</code>\n"
+        f"💰 Equity: <b>${account_value:,.0f}</b>\n"
+        f"📊 Exposure: <b>${exposure_total:,.0f}</b> ({book_leverage:.2f}x book)\n"
+        f"📈 Open uPnL: <b>{upnl_str}</b>"
+        f"{negative_line}\n"
+        f"━━━━━━━━━━━━━━━━\n"
+        f"<b>Read:</b> {reason}\n"
+        f"🕐 {datetime.utcnow().strftime('%H:%M UTC')}\n"
+        f"━━━━━━━━━━━━━━━━\n"
+        f"<i>Not financial advice. Data only.</i>"
+    )
+
+
 def confluence_alert(coin: str, side: str, whale_count: int,
                      total_notional: float, whales: list[dict],
                      premium: bool = False) -> str:

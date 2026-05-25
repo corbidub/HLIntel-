@@ -1,235 +1,116 @@
-# HL Intel
+# HL Intel Scanner
 
-A Telegram intelligence bot for Hyperliquid traders. Monitors the top 50 leaderboard wallets in real time and fires alerts when whales open new positions, add to existing ones, or align on the same trade. Delivers candlestick charts with entry price markers directly to Telegram channels.
+Telegram-first Hyperliquid wallet intelligence for the HL Intel Free and Pro channels.
 
----
+The scanner watches the top Hyperliquid leaderboard plus curated deploy-time wallet lists, filters noisy behavior, stores local state, and sends Telegram alerts when tracked wallets make material positioning or risk changes. It is a data product, not copy-trading or trade automation.
 
-## What It Does
+## Product Shape
 
-| Alert Type | Trigger | Channel |
+- Free channel: selected public alerts, teasers, occasional market structure notes.
+- Pro channel: filtered tracked-wallet alerts, curated/VIP wallet context, wallet health alerts, stress/liquidation warnings, confluence, and digest reads.
+- Paid access: managed outside the scanner through LaunchPass and the private `@HLIntelPro` Telegram channel.
+- First sellable version: Telegram feed only. No dashboard is required for launch.
+
+## Alert Types
+
+| Alert type | Trigger | Channel |
 |---|---|---|
-| Whale Move | Top-50 wallet opens new position above threshold | Free + Paid |
-| Whale Adding | Same wallet increases position size by 20%+ | Free + Paid |
-| Whale Confluence (2 wallets) | 2 top-50 wallets hold same coin/direction | Free + Paid |
-| Whale Confluence (3+ wallets) | 3+ top-50 wallets hold same coin/direction | Paid only |
-| Funding Spike | Funding rate crosses threshold and moved significantly | Free + Paid |
-| OI Surge | Open interest changes 15%+ since last scan | Free + Paid |
-| Weekly Digest | Summary of whale activity, top markets, confluence count | Free + Paid |
+| Whale move | Top wallet or curated wallet opens meaningful exposure | Free + Pro or Pro only, depending on lane |
+| Whale adding | Existing watched position grows materially | Pro |
+| Wallet reactivation | Important flat/watch wallet becomes active again | Pro |
+| Wallet health | Wallet enters hot streak, cooling, implosion watch, or self-imploding state | Pro |
+| Stress watch | Wallet adds while under loss/liquidation pressure | Pro |
+| Liquidation risk | Large position approaches configured liquidation distance | Pro |
+| Confluence | Multiple top wallets align on coin/direction | Free teaser for light cases, Pro for full detail |
+| Funding/OI | Funding or open-interest structure changes enough to matter | Free + Pro |
+| Weekly digest | Summary of the cleanest wallet and market reads | Free summary + Pro detail |
 
-Every whale and confluence alert includes a **4h candlestick chart** with:
-- Dashed entry price lines per wallet (teal = long, red = short)
-- Yellow current price line
-- Volume bars
+## Runtime Flow
 
----
+1. Fetch top leaderboard rows and asset funding/OI.
+2. Load deploy-time watches from `scanner/watchlist.json`.
+3. Fetch current positions for top wallets plus curated watches.
+4. Save leaderboard, position, funding, and wallet-health snapshots to SQLite.
+5. Compare current state against previous snapshots.
+6. Send only material alerts, respecting cooldowns and per-cycle caps.
+7. Send weekly digest when scheduled.
 
-## Project Structure
-
-```
-hl-intel/
-├── engine/
-│   ├── scanner.py      # All alert detection logic
-│   └── digest.py       # Weekly digest generation
-├── alerts/
-│   ├── formatter.py    # Telegram message formatting
-│   └── chart.py        # Candlestick chart generation
-├── bot/
-│   └── telegram.py     # Telegram send functions
-├── data/
-│   └── database.py     # SQLite layer — snapshots, alerts, state
-├── hyperliquid/
-│   └── client.py       # Hyperliquid API client
-├── config.py           # Thresholds and env var loading
-├── main.py             # Entry point and scan loop
-├── .env                # Secrets (never commit)
-└── requirements.txt
-```
-
----
-
-## Setup
-
-### 1. Clone and install dependencies
-
-```bash
-git clone <repo>
-cd hl-intel
-pip install -r requirements.txt
-```
-
-### 2. Create your Telegram bot
-
-1. Open Telegram → search `@BotFather` → `/newbot`
-2. Note the bot token
-3. Create two channels: one public (free), one private (paid)
-4. Add the bot as admin with post permission to both channels
-5. Get channel IDs (see below)
-
-**Getting channel IDs:**
-```bash
-python3 -c "
-import urllib.request, json
-token = 'YOUR_TOKEN'
-url = f'https://api.telegram.org/bot{token}/getUpdates'
-print(json.dumps(json.loads(urllib.request.urlopen(url).read()), indent=2))
-"
-```
-Look for `"chat": {"id": -100xxxxxxxxxx}` in the output.
-
-### 3. Configure environment
-
-```bash
-cp .env.example .env
-```
-
-Edit `.env`:
-```
-TELEGRAM_BOT_TOKEN=your_token_here
-FREE_CHANNEL_ID=@your_free_channel
-PAID_CHANNEL_ID=-100xxxxxxxxxx
-```
-
-### 4. Run
-
-```bash
-python3 main.py
-```
-
-On first start, the bot runs a silent **seed cycle** to populate the database — no alerts fire during this phase. Once seeded, alerts go live and the startup message is sent to both channels.
-
----
+The first scanner start runs a silent seed cycle so existing positions do not trigger intro spam.
 
 ## Configuration
 
-All thresholds are in `config.py`:
+Copy `.env.example` to `.env` and fill in channel credentials.
 
-| Setting | Default | Description |
-|---|---|---|
-| `WHALE_POSITION_THRESHOLD_USD` | $500,000 | Minimum notional to trigger a whale alert |
-| `FUNDING_RATE_SPIKE_THRESHOLD` | 0.0005 (0.05%/8h) | Minimum funding rate to consider a spike |
-| `OI_SURGE_PCT_THRESHOLD` | 15.0% | Minimum OI change to trigger a surge alert |
-
-In `engine/scanner.py`:
-
-| Setting | Default | Description |
-|---|---|---|
-| `MAX_WHALE_ALERTS_PER_CYCLE` | 5 | Max whale alerts sent per 60-second scan |
-| `SIZE_INCREASE_THRESHOLD_PCT` | 20.0% | Minimum notional increase to fire a "whale adding" alert |
-
----
-
-## Running in the Background
-
-```bash
-# Start
-nohup python3 main.py > hl_intel.log 2>&1 &
-
-# Check logs
-tail -f hl_intel.log
-
-# Check it's running
-pgrep -fl "python3 main.py"
-
-# Stop
-pkill -f "python3 main.py"
+```txt
+TELEGRAM_BOT_TOKEN=your_bot_token_here
+FREE_CHANNEL_ID=@your_free_channel_username
+PAID_CHANNEL_ID=-100xxxxxxxxxx
+SCAN_INTERVAL_SECONDS=180
+HL_INFO_MIN_REQUEST_INTERVAL_SECONDS=0.75
+HL_INFO_MAX_RETRIES=5
+HL_HTTP_TIMEOUT_SECONDS=20
 ```
 
----
+Optional:
 
-## How Alerts Work
+```txt
+HL_INTEL_DB_PATH=/data/hl_intel.db
+HL_INTEL_WATCHLIST_PATH=/app/watchlist.json
+SEND_STARTUP_MESSAGE=false
+```
 
-### Scan Cycle (every 60 seconds)
+Important threshold defaults live in `config.py` and `engine/scanner.py`.
 
-1. Fetch top-50 leaderboard + all asset funding/OI data in parallel
-2. Save snapshots to SQLite
-3. Check funding spikes and OI surges
-4. For each top-50 wallet: fetch current positions, compare to previous snapshot
-5. Fire alerts for new opens, size increases, confluence
-6. Check if weekly digest is due
+## Watchlists
 
-### New Position Detection
+`scanner/watchlist.json` is packaged into the worker image and adds wallets outside the current top leaderboard. Use it for deployable Pro watches only.
 
-A position is "new" if the coin/side combination was not present in the wallet's **previous snapshot**. This means:
-- A whale closing and reopening a position between cycles will trigger again
-- A whale holding a steady position will not re-alert (cooldown also enforced)
+Rules:
 
-### Confluence Detection
+- Priority A: core Pro watch wallets.
+- Priority B: secondary/custom watch wallets.
+- Keep token filters tight for secondary wallets.
+- Do not add internal risk-watch or noisy wide-book wallets to the public/Pro feed without a clear alert policy.
 
-Groups all current positions across top-50 wallets by coin/side. If 2+ wallets appear in the same group above the threshold, confluence fires. The alert key includes the wallet count — so escalation from 2→3 wallets triggers a fresh alert.
-
-### Alert Cooldowns
-
-| Alert Type | Cooldown |
-|---|---|
-| Whale new position | 240 minutes |
-| Whale size increase | 120 minutes |
-| Confluence | 120 minutes |
-| Funding spike | 120 minutes |
-| OI surge | 120 minutes |
-| Weekly digest | Sent once per Monday 08:00 UTC |
-
----
+Local paid-pilot experimentation belongs in `launch/pilot-watchlist.local.json`, which is gitignored.
 
 ## Data Storage
 
-SQLite database (`hl_intel.db`) with four tables:
+SQLite database tables include:
 
-- `leaderboard_snapshots` — rank, account value, PnL per wallet per scan
-- `position_snapshots` — open positions per wallet per scan
-- `funding_snapshots` — funding rate and OI per asset per scan
-- `alerts_sent` — log of every alert fired (used for cooldown enforcement)
+- `leaderboard_snapshots`
+- `position_snapshots`
+- `funding_snapshots`
+- `wallet_performance_snapshots`
+- `alerts_sent`
+- `wallet_labels`
 
----
+Use persistent storage in production. If the database resets, cooldown history and wallet health baselines reset too.
 
-## Subscription Management
+## Run Locally
 
-Paid channel access is managed via [Whop.com](https://whop.com). Whop handles:
-- Stripe and crypto payments
-- Automatic Telegram channel invite link delivery
-- Subscriber dashboard
-
-Free channel is public and open to anyone.
-
----
-
-## Alert Examples
-
-**Whale Move**
-```
-🐋 WHALE MOVE — Hyperliquid
-━━━━━━━━━━━━━━━━
-🟢 BTC-PERP | LONG
-📊 Size: $1,338,969
-🏆 Rank: #3 on leaderboard
-💰 Account: $4,007,498
-📈 Day PnL: +$23,927
-🔑 0xf5d8...1a13
-🕐 00:24 UTC
-━━━━━━━━━━━━━━━━
-Not financial advice. Data only.
+```bash
+pip install -r requirements.txt
+cp .env.example .env
+python3 main.py
 ```
 
-**Whale Confluence**
-```
-🐋🐋 WHALE CONFLUENCE — TON-PERP
-━━━━━━━━━━━━━━━━
-🔴 SHORT | 2 top-50 wallets aligned
-💰 Combined: $10,816,240
+Smoke check:
 
-Wallets:
-  🏆 #4 — $6,200,000 | 0xabc1...ef45
-  🏆 #11 — $4,616,240 | 0x9876...ba32
-━━━━━━━━━━━━━━━━
-🕐 02:14 UTC
-Not financial advice. Data only.
+```bash
+python3 -m py_compile main.py config.py alerts/*.py bot/*.py data/*.py engine/*.py hyperliquid/*.py scripts/*.py
 ```
 
----
+## Deploy
 
-## Roadmap
+See `scanner/DEPLOYMENT.md`.
 
-- [ ] Custom font rendering for chart titles (emoji support)
-- [ ] HL Intel logo/branding on charts
-- [ ] Tighter label positioning when entry prices cluster
-- [ ] Leaderboard shift alerts (new entrant to top 50)
-- [ ] Web dashboard for live position heatmap
+Current target is an always-on worker, with SQLite mounted at `/data/hl_intel.db`. Do not run multiple replicas against the same Telegram channels unless duplicate-alert protection is moved to a shared database with locking.
+
+## What Not To Build Yet
+
+- Auto-copy trading.
+- Guaranteed signal scoring.
+- Public firehose for every wallet movement.
+- Subscriber dashboard.
+- Web dashboard or heatmap before the Telegram feed proves conversion.

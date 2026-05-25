@@ -10,6 +10,9 @@ kill_timeout = "10s"
   HL_INTEL_DB_PATH = "/data/hl_intel.db"
   SEND_STARTUP_MESSAGE = "false"
   SCAN_INTERVAL_SECONDS = "180"
+  HL_INFO_MIN_REQUEST_INTERVAL_SECONDS = "0.75"
+  HL_INFO_MAX_RETRIES = "5"
+  HL_HTTP_TIMEOUT_SECONDS = "20"
 
 [[mounts]]
   source = "hl_intel_data"

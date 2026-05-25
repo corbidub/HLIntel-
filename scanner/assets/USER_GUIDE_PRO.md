@@ -1,147 +1,87 @@
-# 📌 HL Intel Pro — How to Use Your Intelligence Feed
+# HL Intel Pro - How To Use Your Intelligence Feed
 
-Welcome to **HL Intel Pro**.
+Welcome to HL Intel Pro.
 
-You're receiving real-time signals from the top 50 Hyperliquid wallets — with 15 confirmed algo bots removed. Every alert here is from a human trader with real capital at risk.
+You are receiving filtered Hyperliquid wallet intelligence from leaderboard wallets, curated watch wallets, and token-specific watch lanes. The product is designed to answer one question quickly: did tracked wallet behavior change enough to deserve review?
 
-Here's how to get the most out of it.
+This is not copy-trading, not financial advice, and not automated execution.
 
----
+## Core Alert Types
 
-## Alert Types
+### Entry
 
-### ⭐ VIP Whale Alert
-Our 6 highest-ROI wallets. These are the traders worth paying close attention to.
+A tracked wallet opened meaningful fresh exposure in a watched token.
 
-| Wallet | All-Time ROI | Known Strategy |
-|---|---|---|
-| #42 | +3,507% | HYPE long + TradFi silver/semis |
-| #22 | +2,051% | TradFi S&P/tech + BTC/HYPE/ENA |
-| #43 | +266% | BTC long / ETH short pair trade |
-| #18 | +144% | $64.9M lifetime PnL — watch for re-entry |
-| #30 | +197% | Conservative shorts — BNB, MNT |
-| #35b | +74% | ETH specialist — currently flat |
+Use it to ask: is this wallet reactivating, starting a new directional bet, or joining a broader participant cluster?
 
-**When a VIP alert fires:** this is the highest-conviction signal in the feed. These wallets have long track records. They're not random — they have an edge.
+### Add
 
----
+A wallet materially increased an existing position.
 
-### 🐋 Whale Move — New Position
-A top-50 human wallet opened a new position above $500K notional.
+Follow-through matters more than the first headline. Adding can show conviction, hedging, or a stress response depending on PnL and liquidation context.
 
-**How to read the chart:**
-- **Teal dashed line** = whale's entry price
-- **Yellow solid line** = current price
-- Entry below current price on a LONG = they're in profit
-- Entry above current price on a LONG = they're underwater
+### Trim / Exit
 
-**What to look for:**
-- Is this wallet's first move in a while? More significant.
-- Is the entry near a major support/resistance on the 4h? Even more significant.
-- Is this a VIP wallet? Higher weight.
+A wallet reduced or fully closed watched exposure.
 
----
+Exits and trims are often more useful than entries because they show when a tracked wallet is de-risking, locking profit, or abandoning a view.
 
-### 🐋📈 Whale Adding — Size Increase
-The same wallet increased an existing position by 20%+. This is often a stronger signal than the initial open — they're doubling down with conviction.
+### Flip
 
----
+A wallet closed one side and opened the opposite side.
 
-### 🔥 Whale Stress Watch
-A Pro-only upgrade to Whale Adding alerts.
+This is a high-context behavior change. Review it before assuming the prior wallet thesis still applies.
 
-This fires when a top wallet adds to an existing position while the position is already under stress: meaningful unrealized losses, a meaningful loss relative to position size, or liquidation pressure close enough to matter.
+### Wallet Health
 
-**Why this matters:** the useful signal is not just "wallet added." It is that the wallet chose to add instead of closing while the market is moving against it.
+HL Intel classifies tracked wallets into states such as:
 
-**What to watch next:**
-- Does the wallet keep adding into pain?
-- Does it trim risk after the next price push?
-- Does liquidation distance become the story?
-- Does the wallet fully exit or flip?
+- Hot streak.
+- Heating up.
+- Cooling off.
+- Implosion watch.
+- Self-imploding.
+- Flat/reactivation watch.
 
-This is the behavioral layer: conviction vs market momentum.
+The point is not just net PnL. A wallet can look fine net while one losing leg is deteriorating badly.
 
----
+### Stress / Liquidation Risk
 
-### 🐋🐋 Confluence Signal
-Two or more human wallets independently hold the same coin and direction above $500K.
+These alerts flag when a wallet adds under adverse movement, carries large losing exposure, or approaches liquidation pressure.
 
-**2 wallets aligned** = meaningful signal
-**3+ wallets aligned** = rare, high-conviction — treat it seriously
+Use these as market-structure context. Do not try to blindly front-run liquidation levels.
 
-The chart shows each wallet's entry price as a separate dashed line. If entries cluster near the same level, they may have identified the same support/resistance. If entries are spread, it's broader directional agreement.
+### Confluence
 
----
+Multiple tracked wallets aligned on the same coin and direction.
 
-### ⚠️ Liquidation Risk Warning / 🚨 Danger
-A large position is approaching forced liquidation.
+Confluence is strongest when the wallets are clean, the exposure is meaningful, and the state changes afterward: add, trim, exit, flip, or stress.
 
-- **Warning (⚠️)** = within 10% of liquidation price
-- **Danger (🚨)** = within 5% — imminent
+### Funding / OI
 
-**Why this matters:** Large liquidations create forced market orders. A $50M ETH short liquidating means $50M in forced buying. If you're watching ETH, this tells you where a potential spike could come from.
+Funding and open interest alerts are market context. They are most useful when they line up with wallet behavior or explain why a wallet may be under pressure.
 
-**How to use it:** Don't trade the liquidation directly — the timing is unpredictable. Use it as context. If ETH is pushing toward $2,291 and you know a $56M short liquidates there, that level has meaning.
+### Weekly Digest
 
----
+The digest is your reset: what mattered, which wallets were active, what changed, and what to keep watching.
 
-### ⚡ Funding Rate Spike
-Funding crossed 0.01%/8h and moved significantly from the previous reading.
+## How To Read Alerts
 
-**Positive funding** = longs paying shorts = market is long-heavy = potential squeeze if price fades
-**Negative funding** = shorts paying longs = market is short-heavy = potential short squeeze if price pumps
+Every alert should answer:
 
-High funding is most useful as a contrarian signal, not a momentum one.
-
----
-
-### 📈 OI Surge
-Open interest on a market increased 5%+ over the past hour.
-
-**Rising OI + rising price** = new longs entering = trend continuation
-**Rising OI + falling price** = new shorts entering = bearish pressure
-**Falling OI** = positions closing = trend potentially exhausting
-
----
-
-### 📊 Weekly Digest (Sundays 08:00 UTC)
-Your weekly review of smart money activity.
-
-Includes:
-- Total whale alerts and confluence events for the week
-- Most active markets and direction
-- Top wallet performance with individual PnL
-- Which wallets are currently flat vs actively positioned
-
-Use the digest to calibrate your week. If the top human traders are mostly short ETH and long BTC, that's a macro view worth noting.
-
----
-
-## The Wallet Intelligence Layer
-
-We've profiled all 50 top leaderboard wallets. Key findings:
-
-**15 algos excluded** — market makers, TradFi HFT firms, @code derivative bots. Their signals are noise.
-
-**Zombies flagged** — wallets with -50%+ all-time ROI still appear on the leaderboard from recent lucky trades. We track them but weight them low.
-
-**Human traders ranked** — the remaining wallets are real people making directional bets. Our VIP tier are the 6 with the strongest long-term edge.
-
----
+- Wallet: who moved.
+- Rank/profile: why this wallet is tracked.
+- Token/side: what changed.
+- Size/change: how meaningful it is.
+- uPnL/risk: whether the wallet is winning, stressed, or deteriorating.
+- Why it matters: the behavioral read.
 
 ## General Principles
 
-**Don't trade every alert.** Use signals as intelligence, not instructions. The best use is building a picture — what are the smart wallets positioned for this week?
+- Do not trade every alert.
+- Treat custom-watch wallets as context unless they match your token/wallet lane.
+- Watch what happens after the headline: add, trim, exit, flip, stress, or reactivation.
+- Quiet periods are healthy. The goal is fewer, higher-context alerts.
+- Past wallet performance does not guarantee future results.
 
-**VIP + Confluence = highest weight.** When a VIP wallet fires AND confluence confirms the same direction, that's rare and meaningful.
-
-**Liquidation alerts are context, not triggers.** Don't try to front-run a liquidation — time it wrong and you're on the wrong side of a volatile move.
-
-**Funding is contrarian.** Extreme funding is most useful as a signal that the trade is crowded, not as confirmation to join it.
-
-**The digest is your weekly reset.** Read it Sunday morning, adjust your bias for the week.
-
----
-
-*Not financial advice. Data only. Past performance of tracked wallets does not guarantee future results. Always manage your own risk.*
+Data only. Not financial advice. Manage your own risk.

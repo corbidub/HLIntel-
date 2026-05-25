@@ -15,6 +15,29 @@ HL_LEADERBOARD_URL = "https://stats-data.hyperliquid.xyz/Mainnet/leaderboard"
 
 _info_lock = asyncio.Lock()
 _last_info_request_at = 0.0
+RETRYABLE_STATUSES = {429, 500, 502, 503, 504}
+
+
+def _client_timeout() -> aiohttp.ClientTimeout:
+    return aiohttp.ClientTimeout(total=config.HL_HTTP_TIMEOUT_SECONDS)
+
+
+def _retry_after_seconds(headers) -> float | None:
+    if not headers:
+        return None
+    raw = headers.get("retry-after")
+    if not raw:
+        return None
+    try:
+        return max(float(raw), 0.0)
+    except ValueError:
+        return None
+
+
+def _retry_wait(attempt: int, retry_after: float | None, delay: float) -> float:
+    if retry_after is not None:
+        return retry_after
+    return delay + random.uniform(0, delay * 0.3)
 
 
 async def _post(session: aiohttp.ClientSession, payload: dict) -> Any:
@@ -32,12 +55,12 @@ async def _paced_post(session: aiohttp.ClientSession, payload: dict) -> Any:
 
         async with session.post(HL_INFO_URL, json=payload) as resp:
             _last_info_request_at = time.monotonic()
-            if resp.status == 429:
+            if resp.status in RETRYABLE_STATUSES:
                 raise aiohttp.ClientResponseError(
                     resp.request_info,
                     resp.history,
-                    status=429,
-                    message="Too Many Requests",
+                    status=resp.status,
+                    message=resp.reason,
                     headers=resp.headers,
                 ) from None
             resp.raise_for_status()
@@ -49,30 +72,40 @@ async def _post_with_backoff(
     payload: dict,
     max_retries: int | None = None,
 ) -> Any:
-    """POST with pacing and exponential backoff on 429."""
+    """POST with pacing and exponential backoff on rate limits and transient upstream errors."""
     if max_retries is None:
         max_retries = config.HL_INFO_MAX_RETRIES
     delay = 2.0
     last_exc: Exception | None = None
     for attempt in range(max_retries + 1):
-        retry_after: str | None = None
+        retry_after: float | None = None
         try:
             return await _paced_post(session, payload)
         except aiohttp.ClientResponseError as e:
             last_exc = e
-            if e.status != 429 or attempt >= max_retries:
+            if e.status not in RETRYABLE_STATUSES or attempt >= max_retries:
                 raise
-            retry_after = e.headers.get("retry-after") if e.headers else None
+            retry_after = _retry_after_seconds(e.headers)
+        except (aiohttp.ClientError, asyncio.TimeoutError) as e:
+            last_exc = e
+            if attempt >= max_retries:
+                raise
 
-        wait = float(retry_after) if retry_after else delay + random.uniform(0, delay * 0.3)
-        log.warning(f"429 — retry {attempt + 1}/{max_retries} in {wait:.1f}s")
+        wait = _retry_wait(attempt, retry_after, delay)
+        log.warning(
+            "Hyperliquid API retry %s/%s in %.1fs after %s",
+            attempt + 1,
+            max_retries,
+            wait,
+            type(last_exc).__name__,
+        )
         await asyncio.sleep(wait)
         delay = min(delay * 2, 30.0)
     raise last_exc  # type: ignore[misc]
 
 
 async def get_leaderboard(top_n: int = 100) -> list[dict]:
-    async with aiohttp.ClientSession() as session:
+    async with aiohttp.ClientSession(timeout=_client_timeout()) as session:
         data = await _get_json_with_backoff(session, HL_LEADERBOARD_URL)
     rows = data.get("leaderboardRows", [])
     return rows[:top_n]
@@ -88,39 +121,51 @@ async def _get_json_with_backoff(
     delay = 2.0
     last_exc: Exception | None = None
     for attempt in range(max_retries + 1):
+        retry_after: float | None = None
         try:
             async with session.get(url) as resp:
-                if resp.status == 429:
+                if resp.status in RETRYABLE_STATUSES:
                     raise aiohttp.ClientResponseError(
                         resp.request_info,
                         resp.history,
-                        status=429,
-                        message="Too Many Requests",
+                        status=resp.status,
+                        message=resp.reason,
                         headers=resp.headers,
                     ) from None
                 resp.raise_for_status()
                 return await resp.json()
         except aiohttp.ClientResponseError as e:
             last_exc = e
-            if e.status != 429 or attempt >= max_retries:
+            if e.status not in RETRYABLE_STATUSES or attempt >= max_retries:
                 raise
-            retry_after = e.headers.get("retry-after") if e.headers else None
-            wait = float(retry_after) if retry_after else delay + random.uniform(0, delay * 0.3)
-            log.warning(f"429 leaderboard — retry {attempt + 1}/{max_retries} in {wait:.1f}s")
-            await asyncio.sleep(wait)
-            delay = min(delay * 2, 30.0)
+            retry_after = _retry_after_seconds(e.headers)
+        except (aiohttp.ClientError, asyncio.TimeoutError) as e:
+            last_exc = e
+            if attempt >= max_retries:
+                raise
+
+        wait = _retry_wait(attempt, retry_after, delay)
+        log.warning(
+            "Hyperliquid leaderboard retry %s/%s in %.1fs after %s",
+            attempt + 1,
+            max_retries,
+            wait,
+            type(last_exc).__name__,
+        )
+        await asyncio.sleep(wait)
+        delay = min(delay * 2, 30.0)
     raise last_exc  # type: ignore[misc]
 
 
 async def get_positions(address: str) -> dict:
-    async with aiohttp.ClientSession() as session:
+    async with aiohttp.ClientSession(timeout=_client_timeout()) as session:
         data = await _post(session, {"type": "clearinghouseState", "user": address})
     return data
 
 
 async def fetch_all_positions(addresses: list[str]) -> dict[str, Any]:
     """Fetch clearinghouse state for all addresses concurrently (semaphore-limited, 429-retried)."""
-    async with aiohttp.ClientSession() as session:
+    async with aiohttp.ClientSession(timeout=_client_timeout()) as session:
         results_list = await asyncio.gather(
             *[_post_with_backoff(session, {"type": "clearinghouseState", "user": addr}) for addr in addresses],
             return_exceptions=True,
@@ -135,7 +180,7 @@ async def fetch_all_positions(addresses: list[str]) -> dict[str, Any]:
 
 
 async def get_candles(coin: str, interval: str, start_ms: int, end_ms: int) -> list[dict]:
-    async with aiohttp.ClientSession() as session:
+    async with aiohttp.ClientSession(timeout=_client_timeout()) as session:
         data = await _post(session, {
             "type": "candleSnapshot",
             "req": {"coin": coin, "interval": interval, "startTime": start_ms, "endTime": end_ms},
@@ -144,7 +189,7 @@ async def get_candles(coin: str, interval: str, start_ms: int, end_ms: int) -> l
 
 
 async def get_funding_and_oi() -> list[dict]:
-    async with aiohttp.ClientSession() as session:
+    async with aiohttp.ClientSession(timeout=_client_timeout()) as session:
         data = await _post_with_backoff(session, {"type": "metaAndAssetCtxs"})
     meta = data[0]["universe"]
     ctxs = data[1]
