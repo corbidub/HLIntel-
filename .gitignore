@@ -1,5 +1,12 @@
 .DS_Store
 node_modules/
+__pycache__/
+*.pyc
+*.pyo
+*.db
+*.db-*
+*.log
+nohup.out
 
 # Local secrets and machine-specific config.
 .env

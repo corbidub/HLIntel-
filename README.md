@@ -1,11 +1,24 @@
-# HL Intel Landing Page
+# HL Intel
 
-Production static site for `hyperliquidintel.com`.
+Landing page, launch research, tracker experiments, and the live Telegram-first Hyperliquid scanner for `hyperliquidintel.com`.
+
+## Repo Layout
+
+```txt
+.
+├── index.html, styles.css, script.js   # Production static landing page
+├── scanner/                            # Live HL Intel Telegram alert scanner
+├── spot-tracker/                       # Experimental spot/hedge research tools
+├── aster-scan-tracker/                 # Experimental Aster scan tracker
+└── launch/                             # Launch research, social assets, proof packet, outreach notes
+```
+
+Runtime files stay local and are intentionally ignored: `.env`, SQLite databases, logs, Python cache, and machine-specific files.
 
 ## Preview Locally
 
 ```sh
-python3 -m http.server 4173 --directory hl-intel-site
+python3 -m http.server 4173
 ```
 
 Open:
@@ -18,9 +31,7 @@ http://localhost:4173
 
 Recommended setup:
 
-1. Create a clean GitHub repository for the landing page.
-2. Upload only the contents of this `hl-intel-site` folder.
-3. In Vercel, import the repository.
+1. In Vercel, import this repository.
 4. Use these settings:
    - Framework Preset: `Other`
    - Build Command: leave empty
