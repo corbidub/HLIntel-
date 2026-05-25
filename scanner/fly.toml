@@ -1,0 +1,16 @@
+app = "hl-intel-scanner"
+primary_region = "ord"
+kill_signal = "SIGINT"
+kill_timeout = "10s"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  HL_INTEL_DB_PATH = "/data/hl_intel.db"
+  SEND_STARTUP_MESSAGE = "false"
+  SCAN_INTERVAL_SECONDS = "180"
+
+[[mounts]]
+  source = "hl_intel_data"
+  destination = "/data"

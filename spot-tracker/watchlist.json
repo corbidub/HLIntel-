@@ -1,0 +1,10 @@
+[
+  {
+    "address": "0x9137bd9347f07990a8ce22869f8b93d190479c5a",
+    "label": "0x9137 HYPE spot accumulator",
+    "source": "EyeOnChain HYPE post 2026-05-24; prior Lookonchain ASTER liquidity coverage",
+    "watch_reason": "Spot-only whale accumulated roughly 228.8K HYPE near highs. Watch for adds, trims, transfers, or later perp hedges.",
+    "priority": "high",
+    "tags": ["HYPE", "spot", "accumulator", "ASTER-history"]
+  }
+]
