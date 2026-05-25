@@ -425,6 +425,7 @@ h3 {
 .plan-card,
 .data-card,
 .telegram-preview,
+.snapshot-card,
 .wallet-card,
 details,
 .final-cta,
@@ -443,6 +444,7 @@ details,
 .plan-card::after,
 .data-card::after,
 .telegram-preview::after,
+.snapshot-card::after,
 .wallet-card::after,
 details::after,
 .stats-strip::after {
@@ -656,7 +658,8 @@ details::after,
 .pricing-grid,
 .step-grid,
 .wallet-grid,
-.pilot-grid {
+.pilot-grid,
+.snapshot-grid {
   display: grid;
   gap: 16px;
 }
@@ -862,6 +865,53 @@ details::after,
   margin-bottom: 0;
 }
 
+.snapshot-section {
+  padding-top: 22px;
+}
+
+.snapshot-grid {
+  align-items: start;
+}
+
+.snapshot-card {
+  display: grid;
+  gap: 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+.snapshot-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-bottom: 1px solid rgba(0, 245, 255, 0.22);
+  background: rgba(10, 14, 23, 0.82);
+}
+
+.snapshot-card-wide img {
+  aspect-ratio: 1.9 / 1;
+}
+
+.snapshot-copy {
+  display: grid;
+  gap: 8px;
+  padding: 18px;
+}
+
+.snapshot-copy span {
+  color: var(--cyan);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.snapshot-copy p {
+  margin: 0;
+  color: #c6d7e4;
+  font-size: 13px;
+}
+
 .read-alert-section {
   padding-top: 22px;
 }
@@ -1039,6 +1089,14 @@ details p {
 
   .pricing-grid {
     grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+  }
+
+  .snapshot-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .snapshot-card-wide {
+    grid-column: 1 / -1;
   }
 
   .site-footer {
