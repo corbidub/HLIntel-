@@ -1,0 +1,28 @@
+name: Scanner CI
+
+on:
+  push:
+    paths:
+      - "scanner/**"
+      - ".github/workflows/scanner-ci.yml"
+  pull_request:
+    paths:
+      - "scanner/**"
+      - ".github/workflows/scanner-ci.yml"
+
+jobs:
+  scanner:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scanner
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+          cache-dependency-path: scanner/requirements.txt
+      - run: python -m pip install --upgrade pip
+      - run: pip install -r requirements.txt
+      - run: python -m py_compile main.py config.py alerts/*.py bot/*.py data/*.py engine/*.py hyperliquid/*.py scripts/*.py

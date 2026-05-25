@@ -1,15 +1,17 @@
 import sqlite3
 import json
+import os
 from contextlib import contextmanager
 from datetime import datetime
 from pathlib import Path
 from typing import Iterator
 
-DB_PATH = Path(__file__).parent.parent / "hl_intel.db"
+DB_PATH = Path(os.getenv("HL_INTEL_DB_PATH", Path(__file__).parent.parent / "hl_intel.db"))
 
 
 @contextmanager
 def get_conn() -> Iterator[sqlite3.Connection]:
+    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(DB_PATH, timeout=10)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA journal_mode=WAL")
