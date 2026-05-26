@@ -226,8 +226,11 @@ async def check_wallet_performance_health(
     if state not in {"hot_streak", "cooling_off", "implosion_watch", "self_imploding"}:
         return
 
-    alert_key = f"wallet_perf:{state}:{address}:{round(current['open_upnl'], -4)}"
+    alert_key = f"wallet_perf:{state}:{address}"
+    legacy_prefix = f"{alert_key}:"
     if alert_already_sent("wallet_performance", alert_key, cooldown_minutes=WALLET_PERFORMANCE_COOLDOWN_MINUTES):
+        return
+    if get_recent_alerts_by_prefix("wallet_performance", legacy_prefix, cooldown_minutes=WALLET_PERFORMANCE_COOLDOWN_MINUTES):
         return
 
     msg = wallet_performance_alert(
