@@ -128,5 +128,5 @@ https://hyperliquidintel.com
 Local preview:
 
 ```txt
-file:///Users/corbinpaulson/Documents/New%20project/hl-intel-site/index.html
+file:///Users/corbinpaulson/Documents/HL%20INTEL%20Workspace/index.html
 ```

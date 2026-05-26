@@ -321,6 +321,14 @@
 - Included current launch Markdown reports and Hyperdash review notes in the documentation sync set; raw local state files remain local unless intentionally published later.
 - Next exact action: return to reviewing wallet-performance and alert-feed outputs.
 
+## 2026-05-25 - Marketing And Outreach Sync
+
+- Confirmed existing tracked marketing/outreach assets include the outreach kit, proof packets, alert layouts, wallet shortlist, social images, and launch reads.
+- Removed old `.gitignore` rules that hid future outreach trackers, DM batches, prospect lists, comment-mining notes, and Telegram live-post drafts.
+- Added `launch/marketing-and-outreach-index.md` as the GitHub-facing map for launch, sales, proof, and outreach files.
+- Updated `launch/outreach-kit.md` to point local preview at the active HL Intel workspace.
+- Next exact action: commit and push marketing/outreach documentation updates.
+
 ## Session Log Format
 
 For each future session, append:

@@ -13,13 +13,5 @@ nohup.out
 .env.*
 !.env.example
 
-# Keep launch operations private unless intentionally published.
-launch/outreach-tracker.csv
-launch/cold-dm-batch-*.md
-launch/outreach-100-touch-sprint-*.md
-launch/prospect-feedback.md
-launch/target-rich-chats-*.md
-launch/x-prospect-shortlist.md
-launch/x-comment-mining-recovery-*.md
-launch/tg-live-posts-*.md
+# Keep local wallet/runtime operations private unless intentionally published.
 launch/pilot-watchlist.local.json
