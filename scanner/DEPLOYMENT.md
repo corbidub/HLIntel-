@@ -33,6 +33,18 @@ HL_INTEL_WATCHLIST_PATH=/app/watchlist.json
 
 This folder includes `Dockerfile`, `.dockerignore`, and `fly.toml`.
 
+Current production target:
+
+```txt
+App: hl-intel-scanner
+Region: ord
+Machine: 9080d14dfe4648
+Size: shared-cpu-1x:1024MB
+Volume: hl_intel_data mounted at /data
+Database: /data/hl_intel.db
+Deploy: GitHub Actions workflow "Deploy Scanner To Fly"
+```
+
 First-time setup from this folder:
 
 ```bash
@@ -43,6 +55,15 @@ fly deploy
 ```
 
 After the first deploy, GitHub Actions can deploy from the repo once `FLY_API_TOKEN` is added as a GitHub Actions secret.
+
+Live verification commands:
+
+```bash
+flyctl machines list --app hl-intel-scanner
+flyctl logs --app hl-intel-scanner
+```
+
+The worker currently needs the 1GB memory setting in `fly.toml`; smaller 256MB/512MB machines have OOM-killed during charting/import-heavy scan cycles.
 
 ## Local Docker Smoke Test
 

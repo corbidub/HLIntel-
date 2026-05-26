@@ -105,7 +105,7 @@ python3 -m py_compile main.py config.py alerts/*.py bot/*.py data/*.py engine/*.
 
 See `scanner/DEPLOYMENT.md`.
 
-Current target is an always-on worker, with SQLite mounted at `/data/hl_intel.db`. Do not run multiple replicas against the same Telegram channels unless duplicate-alert protection is moved to a shared database with locking.
+Current target is the Fly app `hl-intel-scanner`: one always-on `shared-cpu-1x:1024MB` worker in `ord`, with SQLite mounted at `/data/hl_intel.db`. Do not run multiple replicas against the same Telegram channels unless duplicate-alert protection is moved to a shared database with locking.
 
 ## What Not To Build Yet
 

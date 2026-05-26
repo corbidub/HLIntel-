@@ -1,36 +1,60 @@
 # HL Intel Market Participant Read
 
-Generated: 2026-05-20T13:08:35.480Z
+Generated: 2026-05-25T17:55:35.373Z
 
 ```text
 🧠 HL INTEL | MARKET PARTICIPANT READ
 
-Active VIP wallets: 5/7
-Net posture: cautious / risk-off by notional
-Top exposure: BTC short $3,352,866; SOL long $487,942; HYPE long $348,254; BTC long $232,514; ZEC long $216,087
+Active VIP wallets: 11/12
+Net posture: risk-on by breadth and notional
+Top exposure: HYPE long $4,450,185; HYPE short $3,402,364; BTC long $3,172,697; ETH short $1,686,237; SOL long $757,660
 
 Read:
-0x6979...da62 is the largest active participant: short bias via BTC exposure. 1 active wallet(s) are showing risk-off or de-risking behavior. 4 active wallet(s) are still expressing risk-on long bias. Breadth is risk-on, but notional is dominated by the largest risk-off participant.
+0xe097...d0fe is the largest active participant: risk-on long bias via SOL exposure. 2 active wallet(s) are showing risk-off or de-risking behavior. 9 active wallet(s) are still expressing risk-on long bias. 2 wallet(s) had fresh behavior changes worth review.
 
 Active participants:
-1. 0x6979...da62 | Flagship / Elite Behavior
-   Short Bias (risk_off); $3,352,866 exposure; top BTC $3,352,866
+1. 0xf00b...91b1 | Core Watch / Hyperdash Promoted
+   Risk-On Long Bias (risk_on); $1,871,666 exposure; top BTC $1,154,319
    Actions: holding
 
-2. 0x031f...b220 | Custom Watch / Incomplete Data
-   Risk-On Long Bias (risk_on); $216,087 exposure; top ZEC $216,087
+2. 0xaede...1602 | Core Watch / Hyperdash Promoted
+   Risk-On / Added (risk_on); $1,120,880 exposure; top HYPE $1,120,880
+   Actions: entered
+
+3. 0x12f5...5a9b | Core Watch / Hyperdash Promoted
+   Risk-On / Added (risk_on); $685,226 exposure; top HYPE $685,226
+   Actions: entered
+
+4. 0xe251...eaba | Core Watch / Hyperdash Promoted
+   Long Bias (risk_on); $1,659,412 exposure; top BTC $1,518,468
    Actions: holding
 
-3. 0x143c...f6ab | Custom Watch / High Risk Behavior
-   Risk-On Long Bias (risk_on); $348,254 exposure; top HYPE $348,254
+5. 0x9a77...bdc9 | Custom Watch / Hyperdash Secondary Dig
+   Risk-On Long Bias (risk_on); $1,081,513 exposure; top HYPE $631,953
    Actions: holding
 
-4. 0xa3d8...fb6b | Custom Watch / Elite Behavior
-   Long Bias (risk_on); $232,514 exposure; top BTC $232,514
+6. 0x718c...a868 | Custom Watch / Hyperdash Secondary Dig
+   Risk-On Long Bias (risk_on); $534,443 exposure; top ZEC $534,443
    Actions: holding
 
-5. 0xa4ad...4509 | Custom Watch / Low Pnl Unproven
-   Risk-On Long Bias (risk_on); $487,942 exposure; top SOL $487,942
+7. 0xaa2a...3026 | Custom Watch / Hyperdash Secondary Dig
+   Short Bias (risk_off); $2,152,081 exposure; top ETH $1,686,237
+   Actions: pnl_changed
+
+8. 0xe79d...0534 | Custom Watch / Hyperdash Secondary Dig
+   Short Bias (risk_off); $2,937,359 exposure; top HYPE $2,937,359
+   Actions: holding
+
+9. 0xb40d...75d9 | Custom Watch / Hyperdash Secondary Dig
+   Risk-On Long Bias (risk_on); $863,790 exposure; top HYPE $640,535
+   Actions: holding
+
+10. 0x88a0...bf63 | Custom Watch / Hyperdash Secondary Dig
+   Risk-On Long Bias (risk_on); $909,254 exposure; top HYPE $609,077
+   Actions: holding
+
+11. 0xe097...d0fe | Custom Watch / Hyperdash Secondary Dig
+   Risk-On Long Bias (risk_on); $3,697,728 exposure; top SOL $757,660
    Actions: holding
 
 Data only. NFA.
