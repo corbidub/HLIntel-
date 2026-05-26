@@ -17,3 +17,8 @@ kill_timeout = "10s"
 [[mounts]]
   source = "hl_intel_data"
   destination = "/data"
+
+[[vm]]
+  memory = "512mb"
+  cpu_kind = "shared"
+  cpus = 1
