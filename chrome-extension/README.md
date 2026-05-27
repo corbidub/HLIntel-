@@ -65,3 +65,6 @@ If you want to modify the extension:
 cd chrome-extension
 npm install
 npm run dev
+
+Then reload the extension in chrome://extensions/ (click the refresh icon on the extension card).
+
