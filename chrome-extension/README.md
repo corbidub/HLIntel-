@@ -42,3 +42,26 @@ Once the endpoint is live, the extension will automatically switch from mock dat
 ---
 
 ## Project Structure
+chrome-extension/
+├── manifest.json
+├── public/
+│   └── icons/              # Extension icons
+├── src/
+│   ├── background/         # Service worker (polling + notifications)
+│   ├── popup/              # React UI
+│   ├── lib/                # Types, storage, API
+│   └── ...
+├── package.json
+└── README.md
+
+
+---
+
+## Development (Optional)
+
+If you want to modify the extension:
+
+```bash
+cd chrome-extension
+npm install
+npm run dev
