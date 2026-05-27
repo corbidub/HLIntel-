@@ -2,7 +2,7 @@
 
 **Companion Chrome extension for HL Intel — Hyperliquid Perp Wallet Intelligence**
 
-Brings filtered Hyperliquid whale alerts, liquidation pressure, and confluence signals directly into your browser with a clean popup interface.
+Brings filtered Hyperliquid whale alerts, liquidation pressure, and confluence signals directly into your browser with a clean, fast popup interface.
 
 ---
 
@@ -13,53 +13,49 @@ Brings filtered Hyperliquid whale alerts, liquidation pressure, and confluence s
 3. Click **"Load unpacked"**
 4. Select the `chrome-extension` folder
 
-After loading, pin the extension for quick access. The popup will show alerts immediately (using mock data until the real API is connected).
+**Tip**: Pin the extension to your toolbar for quick access. It will show mock alerts immediately until the real API is connected.
 
 ---
 
 ## Current Status
 
-- ✅ Built with modern Manifest V3 + TypeScript + React + Tailwind
+- ✅ Modern Manifest V3 + TypeScript + React + Tailwind
 - ✅ Clean popup UI with alert feed, filtering, and history
-- ✅ Service worker that handles polling, deduplication, notifications, and badge count
-- ✅ Local storage for alert history and settings
-- 🔄 **API integration pending** (this is what needs to be finished)
+- ✅ Service worker (polling, deduplication, browser notifications, badge count)
+- ✅ Local storage for alert history and user settings
+- 🔄 **API integration pending**
 
 ---
 
-## TODO – API Integration
+## TODO – API Integration (Priority)
 
-The extension is ready to receive real alerts. Main tasks remaining:
+The extension is fully built and ready. Main remaining tasks:
 
-- Set up a JSON endpoint (recommended: `https://hyperliquidintel.com/api/alerts`)
+- Set up a JSON endpoint: `https://hyperliquidintel.com/api/alerts` (or similar)
 - Update the polling URL in `src/lib/api.ts`
-- Define the final `Alert` type contract (see `src/lib/types.ts`)
+- Finalize the `Alert` type contract (`src/lib/types.ts`)
 - Connect your existing alert pipeline to publish structured JSON
-- Replace mock data with real data
+- Replace mock data with live data
 
-Once the endpoint is live, the extension will automatically switch from mock data to live alerts.
+Once the endpoint is live, the extension will automatically use real alerts.
 
 ---
-
-## Project Structure
 chrome-extension/
 ├── manifest.json
-├── public/
-│   └── icons/              # Extension icons
-├── src/
-│   ├── background/         # Service worker (polling + notifications)
-│   ├── popup/              # React UI
-│   ├── lib/                # Types, storage, API
-│   └── ...
 ├── package.json
+├── public/
+│   └── icons/                  # 16, 48, 128 px icons
+├── src/
+│   ├── background/             # Service worker (core logic)
+│   ├── popup/                  # React UI + components
+│   ├── lib/                    # types, storage, api
+│   └── ...
 └── README.md
 
 
 ---
 
 ## Development (Optional)
-
-If you want to modify the extension:
 
 ```bash
 cd chrome-extension
@@ -68,3 +64,5 @@ npm run dev
 
 Then reload the extension in chrome://extensions/ (click the refresh icon on the extension card).
 
+
+## Project Structure
