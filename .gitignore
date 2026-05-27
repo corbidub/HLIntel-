@@ -15,3 +15,10 @@ nohup.out
 
 # Keep local wallet/runtime operations private unless intentionally published.
 launch/pilot-watchlist.local.json
+
+# Chrome Extension - ignore only build artifacts
+chrome-extension/dist/
+chrome-extension/build/
+chrome-extension/*.crx
+chrome-extension/*.zip
+chrome-extension/node_modules/
