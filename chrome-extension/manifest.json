@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "HL Intel — Hyperliquid Wallet Alerts",
+  "version": "0.1.0",
+  "description": "Filtered Hyperliquid perp wallet intelligence. Ranked wallet moves, confluence, liquidation pressure.",
+  "action": {
+    "default_popup": "src/popup/index.html",
+    "default_title": "HL Intel"
+  },
+  "background": {
+    "service_worker": "service-worker-loader.js",
+    "type": "module"
+  },
+  "permissions": [
+    "alarms",
+    "notifications",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://*.vercel.app/*",
+    "https://hyperliquidintel.com/*"
+  ],
+  "icons": {
+    "16": "public/icons/icon16.png",
+    "48": "public/icons/icon48.png",
+    "128": "public/icons/icon128.png"
+  },
+  "externally_connectable": {
+    "matches": [
+      "https://*.vercel.app/*"
+    ]
+  }
+}
