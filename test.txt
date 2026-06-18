@@ -1,0 +1,127 @@
+#!/usr/bin/env python3
+"""
+screen.py - All-pairs scanner for Hyperliquid (read-only).
+
+Two passes:
+  1) Broad scan: liquidity filter (from one metaAndAssetCtxs call) -> light 1h/4h
+     fetch per survivor -> confluence score -> ranked shortlist.
+  2) Deep-dive: full fetch (all TFs + order book) on the top N only, attaching the
+     entry/stop/target/sizing numbers the Grok layer needs. Keeps API weight low.
+"""
+from __future__ import annotations
+import logging
+import time
+from engine import (CONFIG, get_universe_and_ctxs, fetch_screen, fetch_live,
+                    analyse_tf, position_sizing)
+
+logging.basicConfig(level=logging.INFO, format="%(message)s")
+log = logging.getLogger("screen")
+
+MIN_VOLUME = 5_000_000     # 24h notional floor (USD)
+MIN_OI_USD = 1_000_000     # open-interest floor (USD notional)
+SHORTLIST_SIZE = 8
+SCAN_TFS = ("1h", "4h")
+EXTREME_FUNDING_HR = 0.0003   # ~0.03%/hr; above this the funded side is "crowded" (tunable)
+
+
+def calculate_confluence_score(reads: dict, funding: float = 0.0) -> float:
+    primary = reads["4h"]
+    score = 0.0
+    if primary.regime in ("trend up", "trend down"):
+        score += 40
+    elif primary.regime == "transition":
+        score += 15
+    # alignment: require all timeframes to agree on a NON-zero direction
+    signs = {1 if r.lean > 0 else -1 if r.lean < 0 else 0 for r in reads.values()}
+    if len(signs) == 1 and 0 not in signs:
+        score += 30
+    score += min(primary.adx, 50) * 0.6
+    # funding: per the trader's framework, extreme +funding => crowded longs (squeeze-prone),
+    # so it's a short-bias. Penalize entering the crowded side; small credit for fading it.
+    direction = 1 if primary.lean > 0 else -1 if primary.lean < 0 else 0
+    if abs(funding) > EXTREME_FUNDING_HR and direction != 0:
+        crowded = 1 if funding > 0 else -1          # +funding => longs crowded
+        score += -15 if direction == crowded else 5
+    return round(score, 1)
+
+
+def run_scan() -> list[dict]:
+    get_universe_and_ctxs(force=True)          # fresh snapshot for this scan
+    meta, ctxs = get_universe_and_ctxs()
+    candidates = []
+    for i, asset in enumerate(meta["universe"]):
+        coin, ctx = asset["name"], ctxs[i]
+        day_vol = float(ctx.get("dayNtlVlm") or 0)
+        mark = float(ctx.get("markPx") or 0)
+        oi_usd = float(ctx.get("openInterest") or 0) * mark   # OI is in coin units -> USD
+        if day_vol < MIN_VOLUME or oi_usd < MIN_OI_USD:
+            continue
+        candidates.append((coin, ctx))
+
+    log.info(f"{len(candidates)} pairs pass the liquidity filter; scanning...")
+    discoveries, errors = [], 0
+    for coin, ctx in candidates:
+        try:
+            frames = fetch_screen(coin, SCAN_TFS)
+            reads = {tf: analyse_tf(tf, frames[tf]) for tf in SCAN_TFS}
+            discoveries.append({
+                "coin": coin,
+                "score": calculate_confluence_score(reads, float(ctx.get("funding") or 0)),
+                "regime_4h": reads["4h"].regime,
+                "lean_4h": reads["4h"].lean,
+                "adx_4h": round(reads["4h"].adx, 1),
+                "direction": "long" if reads["4h"].lean > 0 else "short" if reads["4h"].lean < 0 else "none",
+                "funding": float(ctx.get("funding") or 0),
+                "oi_usd": float(ctx.get("openInterest") or 0) * float(ctx.get("markPx") or 0),
+            })
+        except Exception as e:
+            errors += 1
+            log.warning(f"  skip {coin}: {type(e).__name__}: {e}")
+        time.sleep(0.04)   # courtesy spacing; the weight limiter in engine._post is the real cap
+    if errors:
+        log.info(f"{errors} pair(s) skipped due to errors (see warnings above).")
+
+    discoveries.sort(key=lambda x: x["score"], reverse=True)
+    return discoveries[:SHORTLIST_SIZE]
+
+
+def deep_dive(discoveries: list[dict]) -> list[dict]:
+    """Enrich the shortlist with full numbers (entry/stop/targets/sizing) for the Grok layer."""
+    enriched = []
+    for d in discoveries:
+        coin = d["coin"]
+        try:
+            frames, micro = fetch_live(coin)
+            reads = {tf: analyse_tf(tf, frames[tf]) for tf in CONFIG.timeframes}
+            p = reads[CONFIG.timeframes[-1]]
+            entry = p.close
+            risk_usd, stop_dist, units, notional = position_sizing(entry, p.atr)
+            side = -1 if p.lean < 0 else 1
+            lev = CONFIG.leverage.get(coin, CONFIG.leverage["default"])
+            d2 = dict(d)
+            d2.update({
+                "micro": micro,
+                "entry": round(entry, 6),
+                "stop": round(entry - side * stop_dist, 6),
+                "targets": [round(entry + side * m * stop_dist, 6) for m in (2, 3, 4)],
+                "atr": round(p.atr, 6),
+                "risk_usd": round(risk_usd, 2),
+                "size_units": round(units, 6),
+                "notional": round(notional, 2),
+                "leverage_set": lev,
+                "structure_4h": p.structure,
+                "notes_4h": p.notes,
+            })
+            enriched.append(d2)
+        except Exception as e:
+            log.warning(f"  deep-dive failed for {coin}: {type(e).__name__}: {e}")
+    return enriched
+
+
+if __name__ == "__main__":
+    log.info("Scanning Hyperliquid (read-only)...")
+    shortlist = run_scan()
+    log.info(f"\nTop {len(shortlist)} by confluence:\n")
+    log.info(f"  {'coin':<8}{'score':>6}  {'dir':<6}{'regime':<12}{'ADX':>5}  funding")
+    for d in shortlist:
+        log.info(f"  {d['coin']:<8}{d['score']:>6.1f}  {d['direction']:<6}{d['regime_4h']:<12}{d['adx_4h']:>5.1f}  {d['funding']*100:+.4f}%/hr")

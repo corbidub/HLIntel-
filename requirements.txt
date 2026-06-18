@@ -1,0 +1,145 @@
+#!/usr/bin/env python3
+"""
+grok_layer.py - Grok-powered trade setup generator (With xAI Training Insights)
+"""
+
+import json
+import os
+import requests
+from typing import List, Dict, Any
+from dotenv import load_dotenv
+
+load_dotenv()
+GROK_API_KEY = os.getenv("GROK_API_KEY") or os.getenv("XAI_API_KEY")
+
+
+def _extract_mark(d: Dict[str, Any]) -> float:
+    candidates = [
+        d.get("micro", {}).get("mark"),
+        d.get("mark"),
+        d.get("markPx"),
+        d.get("entry"),
+        d.get("close"),
+    ]
+    for c in candidates:
+        try:
+            if c is not None:
+                val = float(c)
+                if val > 0:
+                    return val
+        except (ValueError, TypeError):
+            continue
+    return 0.0
+
+
+def generate_setups(discoveries: List[dict]) -> List[dict]:
+    results = []
+    for d in discoveries:
+        coin = d.get("coin", "UNKNOWN")
+        mark = _extract_mark(d)
+        direction = d.get("direction", "long").lower()
+        side = 1 if direction == "long" else -1
+
+        entry = float(d.get("entry") or mark)
+        stop = d.get("stop")
+        targets = d.get("targets")
+
+        if not stop or not targets or float(stop) == 0:
+            atr = float(d.get("atr", mark * 0.025) or mark * 0.025)
+            stop_dist = atr * 1.5
+            stop = round(entry - side * stop_dist, 6)
+            targets = [round(entry + side * m * stop_dist, 6) for m in (2.0, 3.0, 4.0)]
+
+        entry = float(entry)
+        stop = float(stop)
+        targets = [float(t) for t in targets]
+
+        if entry == 0:
+            continue
+
+        context = {
+            "coin": coin,
+            "mark_price": mark,
+            "entry": entry,
+            "stop": stop,
+            "targets": targets,
+            "score": d.get("score", 0),
+            "direction": direction,
+            "4h_regime": d.get("regime_4h"),
+            "adx": d.get("adx_4h"),
+            "funding": d.get("funding"),
+            "oi_usd": d.get("oi_usd"),
+            "structure": d.get("structure_4h"),
+            "notes": d.get("notes_4h"),
+        }
+
+        prompt = f"""You are Grok, built by xAI. You seek truth, avoid hype, and think from first principles.
+
+Generate ONE high-conviction Hyperliquid perps setup for {coin}.
+
+Market Context:
+{json.dumps(context, indent=2)}
+
+Rationale Guidelines (use your training):
+- Be concise, insightful, and honest (1-2 sentences)
+- Reference regime, ADX strength, funding pressure, structure, volume/OI
+- Mention confluence, potential risks, or second-order effects
+- Avoid slop — be decisive and truth-seeking
+
+Return ONLY valid JSON:
+{{
+  "coin": "{coin}",
+  "score": {d.get("score", 0)},
+  "lean_disclosure": "short professional lean statement",
+  "setups": [{{
+    "direction": "{direction}",
+    "entry": {entry},
+    "stop": {stop},
+    "targets": {targets},
+    "leverage_set": 5,
+    "risk_pct_at_leverage": 1.0,
+    "confidence": "high" | "med" | "low",
+    "rationale": "rich insightful 1-2 sentence rationale",
+    "invalidation": "clear invalidation level or condition"
+  }}]
+}}"""
+
+        try:
+            if GROK_API_KEY:
+                headers = {"Authorization": f"Bearer {GROK_API_KEY}", "Content-Type": "application/json"}
+                payload = {
+                    "model": "grok-4",
+                    "messages": [{"role": "user", "content": prompt}],
+                    "temperature": 0.3,
+                    "max_tokens": 700
+                }
+                resp = requests.post("https://api.x.ai/v1/chat/completions", json=payload, headers=headers, timeout=25)
+                print(f"\n=== RAW GROK RESPONSE for {coin} ===\n{resp.text[:1800]}\n")
+                content = resp.json()["choices"][0]["message"]["content"].strip()
+                if content.startswith("```"):
+                    content = content.split("```")[1].replace("json", "").strip()
+                setup = json.loads(content)
+                setup["score"] = d.get("score", 0)
+            else:
+                raise Exception("No API key")
+        except Exception as e:
+            print(f"Grok fallback for {coin}: {e}")
+            setup = {
+                "coin": coin,
+                "score": d.get("score", 0),
+                "lean_disclosure": f"I lean {direction} on {coin} (score {d.get('score', 0)})",
+                "setups": [{
+                    "direction": direction,
+                    "entry": round(entry, 6),
+                    "stop": round(stop, 6),
+                    "targets": [round(t, 6) for t in targets],
+                    "leverage_set": 5,
+                    "risk_pct_at_leverage": 1.0,
+                    "confidence": "med" if d.get("score", 0) > 45 else "low",
+                    "rationale": f"{d.get('regime_4h', 'Trend')} regime | ADX {d.get('adx_4h', 0)} | Funding {d.get('funding', 0)*100:.4f}%/hr. {d.get('structure', 'Clean structure')} with good alignment on higher timeframes.",
+                    "invalidation": "Break of recent swing structure or mark invalidation."
+                }]
+            }
+
+        results.append(setup)
+    return results
