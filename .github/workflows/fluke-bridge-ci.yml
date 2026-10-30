@@ -1,0 +1,24 @@
+name: Fluke read-only bridge unit tests
+
+on:
+  push:
+    paths:
+      - "scanner/integrations/**"
+      - "scanner/tests/test_fluke_bridge.py"
+      - ".github/workflows/fluke-bridge-ci.yml"
+  pull_request:
+    paths:
+      - "scanner/integrations/**"
+      - "scanner/tests/test_fluke_bridge.py"
+      - ".github/workflows/fluke-bridge-ci.yml"
+
+jobs:
+  bridge-unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python3 -m unittest discover -s scanner/tests -p 'test_fluke_bridge.py' -v
+      - run: python3 -m py_compile scanner/integrations/fluke_bridge.py
